@@ -1570,11 +1570,15 @@ public class QuanLyNhaThuocJFrame1 extends javax.swing.JFrame {
     QLNhomThuocJPanel TabQLNhomThuoc;
 
     void openQLNhomThuoc() {
-        if (TabQLNhomThuoc == null) {
+        if(Auth.isLogin()){
+            if (TabQLNhomThuoc == null) {
             TabQLNhomThuoc = new QLNhomThuocJPanel();
             TabMain.addTab("", TabQLNhomThuoc);
         }
         TabMain.setSelectedComponent(TabQLNhomThuoc);
+        }else{
+            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
+        }
     }
     QLDanhMucThuocJPanel TabQLDanhMucThuoc;
 
@@ -1606,11 +1610,15 @@ public class QuanLyNhaThuocJFrame1 extends javax.swing.JFrame {
     QLKhachHangJPanel TabQLKH;
 
     void openQLKH() {
-        if (TabQLKH == null) {
-            TabQLKH = new QLKhachHangJPanel();
-            TabMain.addTab("", TabQLKH);
+        if (Auth.isLogin()) {
+            if (TabQLKH == null) {
+                TabQLKH = new QLKhachHangJPanel();
+                TabMain.addTab("", TabQLKH);
+            }
+            TabMain.setSelectedComponent(TabQLKH);
+        } else {
+            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
         }
-        TabMain.setSelectedComponent(TabQLKH);
     }
     TKTonKhoJPanel TabTonKho;
 

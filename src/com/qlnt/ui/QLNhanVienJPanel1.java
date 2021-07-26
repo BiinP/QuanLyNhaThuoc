@@ -518,6 +518,7 @@ public class QLNhanVienJPanel1 extends javax.swing.JPanel {
         tblNhanVien.setRowHeight(25);
         tblNhanVien.setShowHorizontalLines(false);
         tblNhanVien.setShowVerticalLines(false);
+        tblNhanVien.getTableHeader().setReorderingAllowed(false);
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblNhanVienMouseClicked(evt);
@@ -692,20 +693,11 @@ public class QLNhanVienJPanel1 extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
    void init() {
         initComponents();
-        designTable();
         txtTimkiem.setText("Nhập tên nhân viên cần tìm");
         fillTable();
         this.updateStatus();
         rdoNam.setSelected(true);
         rdoQuanLy.setSelected(true);
-    }
-
-    void designTable() {        
-        tblNhanVien.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
-        tblNhanVien.getTableHeader().setOpaque(true);
-        tblNhanVien.getTableHeader().setBackground(new Color(24, 116, 168));
-        tblNhanVien.getTableHeader().setForeground(Color.BLACK);
-        tblNhanVien.setRowHeight(30);
     }
     int row = -1;
     NhanVienDAO dao = new NhanVienDAO();
@@ -774,6 +766,8 @@ public class QLNhanVienJPanel1 extends javax.swing.JPanel {
 
     void clearForm() {
         NhanVien nv = new NhanVien();
+        nv.setGioiTinh(true);
+        nv.setVaiTro(true);
         this.setForm(nv);
         this.row = -1;
         this.updateStatus();
@@ -884,7 +878,6 @@ public class QLNhanVienJPanel1 extends javax.swing.JPanel {
     void TimKiem() {
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
         model.setRowCount(0);
-//        KhoaHoc khoaHoc = (KhoaHoc) cboKhoaHoc.getSelectedItem();
         String keyword = txtTimkiem.getText();
         List<NhanVien> list = dao.selectNotInCourse(keyword);
         for (NhanVien nv : list) {
