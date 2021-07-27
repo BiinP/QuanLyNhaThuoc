@@ -23,12 +23,12 @@ import javax.swing.Timer;
  *
  * @author monst
  */
-public class QuanLyNhaThuocJFrame1 extends javax.swing.JFrame {
+public class QuanLyNhaThuocJFrame2 extends javax.swing.JFrame {
 
     /**
      * Creates new form QuanLyNhaThuocJFrame
      */
-    public QuanLyNhaThuocJFrame1() {
+    public QuanLyNhaThuocJFrame2() {
         init();
     }
 
@@ -1449,7 +1449,7 @@ public class QuanLyNhaThuocJFrame1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyNhaThuocJFrame1().setVisible(true);
+                new QuanLyNhaThuocJFrame2().setVisible(true);
             }
         });
     }
@@ -1509,6 +1509,8 @@ public class QuanLyNhaThuocJFrame1 extends javax.swing.JFrame {
 
     void init() {
         initComponents();
+        new ChaoJDialog(this, true).setVisible(true);
+        new DangNhapJDialog(this, true).setVisible(true);
         setLocationRelativeTo(this);
         pnlSubmenu.setVisible(false);
         startDongHo();
@@ -1570,15 +1572,11 @@ public class QuanLyNhaThuocJFrame1 extends javax.swing.JFrame {
     QLNhomThuocJPanel TabQLNhomThuoc;
 
     void openQLNhomThuoc() {
-        if(Auth.isLogin()){
-            if (TabQLNhomThuoc == null) {
+        if (TabQLNhomThuoc == null) {
             TabQLNhomThuoc = new QLNhomThuocJPanel();
             TabMain.addTab("", TabQLNhomThuoc);
         }
         TabMain.setSelectedComponent(TabQLNhomThuoc);
-        }else{
-            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
-        }
     }
     QLDanhMucThuocJPanel TabQLDanhMucThuoc;
 
@@ -1610,15 +1608,11 @@ public class QuanLyNhaThuocJFrame1 extends javax.swing.JFrame {
     QLKhachHangJPanel TabQLKH;
 
     void openQLKH() {
-        if (Auth.isLogin()) {
-            if (TabQLKH == null) {
-                TabQLKH = new QLKhachHangJPanel();
-                TabMain.addTab("", TabQLKH);
-            }
-            TabMain.setSelectedComponent(TabQLKH);
-        } else {
-            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
+        if (TabQLKH == null) {
+            TabQLKH = new QLKhachHangJPanel();
+            TabMain.addTab("", TabQLKH);
         }
+        TabMain.setSelectedComponent(TabQLKH);
     }
     TKTonKhoJPanel TabTonKho;
 
@@ -1727,8 +1721,7 @@ public class QuanLyNhaThuocJFrame1 extends javax.swing.JFrame {
             Auth.clear();
             lblUser.setText("Tên nhân viên");
             lblRole.setText("Vai trò");            
-            new DangNhapJFrame().setVisible(true);
-            this.dispose();
+            new DangNhapJDialog(this, true).setVisible(true);
         }
         return;
     }

@@ -91,7 +91,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         TabMain = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1200, 600));
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setUndecorated(true);
         setOpacity(0.0F);
@@ -1510,8 +1509,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
 
     void init() {
         initComponents();
-        new ChaoJDialog(this, true).setVisible(true);
-        new DangNhapJDialog(this, true).setVisible(true);
         setLocationRelativeTo(this);
         pnlSubmenu.setVisible(false);
         startDongHo();
@@ -1573,20 +1570,29 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     QLNhomThuocJPanel TabQLNhomThuoc;
 
     void openQLNhomThuoc() {
-        if (TabQLNhomThuoc == null) {
-            TabQLNhomThuoc = new QLNhomThuocJPanel();
-            TabMain.addTab("", TabQLNhomThuoc);
+        if (Auth.isLogin()) {
+            if (TabQLNhomThuoc == null) {
+                TabQLNhomThuoc = new QLNhomThuocJPanel();
+                TabMain.addTab("", TabQLNhomThuoc);
+            }
+            TabMain.setSelectedComponent(TabQLNhomThuoc);
+        } else {
+            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
         }
-        TabMain.setSelectedComponent(TabQLNhomThuoc);
     }
     QLDanhMucThuocJPanel TabQLDanhMucThuoc;
 
     void openQLDanhMucThuoc() {
-        if (TabQLDanhMucThuoc == null) {
-            TabQLDanhMucThuoc = new QLDanhMucThuocJPanel();
-            TabMain.addTab("", TabQLDanhMucThuoc);
+        if (Auth.isLogin()) {
+            if (TabQLDanhMucThuoc == null) {
+                TabQLDanhMucThuoc = new QLDanhMucThuocJPanel();
+                TabMain.addTab("", TabQLDanhMucThuoc);
+            }
+            TabMain.setSelectedComponent(TabQLDanhMucThuoc);
+        } else {
+            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
         }
-        TabMain.setSelectedComponent(TabQLDanhMucThuoc);
+
     }
     QLHangHoaJPanel TabQLHangHoa;
 
@@ -1609,11 +1615,15 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     QLKhachHangJPanel TabQLKH;
 
     void openQLKH() {
-        if (TabQLKH == null) {
-            TabQLKH = new QLKhachHangJPanel();
-            TabMain.addTab("", TabQLKH);
+        if (Auth.isLogin()) {
+            if (TabQLKH == null) {
+                TabQLKH = new QLKhachHangJPanel();
+                TabMain.addTab("", TabQLKH);
+            }
+            TabMain.setSelectedComponent(TabQLKH);
+        } else {
+            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
         }
-        TabMain.setSelectedComponent(TabQLKH);
     }
     TKTonKhoJPanel TabTonKho;
 
@@ -1675,7 +1685,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
                 Thread.sleep(70);
             } catch (Exception e) {
             }
-        }        
+        }
     }
 
     void hover(int so, JPanel pnl) {
@@ -1721,8 +1731,9 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         if (MsgBox.confirm(this, "Bạn có muốn đăng xuất")) {
             Auth.clear();
             lblUser.setText("Tên nhân viên");
-            lblRole.setText("Vai trò");            
-            new DangNhapJDialog(this, true).setVisible(true);
+            lblRole.setText("Vai trò");
+            new DangNhapJFrame().setVisible(true);
+            this.dispose();
         }
         return;
     }

@@ -518,6 +518,7 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
         tblNhanVien.setRowHeight(25);
         tblNhanVien.setShowHorizontalLines(false);
         tblNhanVien.setShowVerticalLines(false);
+        tblNhanVien.getTableHeader().setReorderingAllowed(false);
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblNhanVienMouseClicked(evt);
@@ -702,10 +703,7 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
 
     void designTable() {        
         tblNhanVien.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
-        tblNhanVien.getTableHeader().setOpaque(true);
-        tblNhanVien.getTableHeader().setBackground(new Color(24, 116, 168));
         tblNhanVien.getTableHeader().setForeground(Color.BLACK);
-        tblNhanVien.setRowHeight(30);
     }
     int row = -1;
     NhanVienDAO dao = new NhanVienDAO();

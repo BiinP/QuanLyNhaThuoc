@@ -10,7 +10,9 @@ import com.qlnt.entity.NhomThuoc;
 import com.qlnt.util.Auth;
 import com.qlnt.util.MsgBox;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
+import static java.awt.Frame.HAND_CURSOR;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -93,6 +95,11 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnThem.png"))); // NOI18N
         btnThem.setBorder(null);
         btnThem.setContentAreaFilled(false);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -103,6 +110,11 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSua.png"))); // NOI18N
         btnSua.setBorder(null);
         btnSua.setContentAreaFilled(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -113,6 +125,11 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnXoa.png"))); // NOI18N
         btnXoa.setBorder(null);
         btnXoa.setContentAreaFilled(false);
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXoaMouseEntered(evt);
+            }
+        });
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaActionPerformed(evt);
@@ -123,6 +140,11 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         btnMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnMoi.png"))); // NOI18N
         btnMoi.setBorder(null);
         btnMoi.setContentAreaFilled(false);
+        btnMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMoiMouseEntered(evt);
+            }
+        });
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMoiActionPerformed(evt);
@@ -133,6 +155,11 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         btnDau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnDau.png"))); // NOI18N
         btnDau.setBorder(null);
         btnDau.setContentAreaFilled(false);
+        btnDau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDauMouseEntered(evt);
+            }
+        });
         btnDau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDauActionPerformed(evt);
@@ -143,6 +170,11 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         btnLui.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnLui.png"))); // NOI18N
         btnLui.setBorder(null);
         btnLui.setContentAreaFilled(false);
+        btnLui.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLuiMouseEntered(evt);
+            }
+        });
         btnLui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLuiActionPerformed(evt);
@@ -153,6 +185,11 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         btnKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnKeTiep.png"))); // NOI18N
         btnKe.setBorder(null);
         btnKe.setContentAreaFilled(false);
+        btnKe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnKeMouseEntered(evt);
+            }
+        });
         btnKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnKeActionPerformed(evt);
@@ -163,6 +200,11 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         btnCuoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnCuoi.png"))); // NOI18N
         btnCuoi.setBorder(null);
         btnCuoi.setContentAreaFilled(false);
+        btnCuoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCuoiMouseEntered(evt);
+            }
+        });
         btnCuoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCuoiActionPerformed(evt);
@@ -399,6 +441,38 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         last();
     }//GEN-LAST:event_btnCuoiActionPerformed
 
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+        btnThem.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+        btnSua.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
+        btnXoa.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnXoaMouseEntered
+
+    private void btnMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoiMouseEntered
+        btnMoi.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnMoiMouseEntered
+
+    private void btnDauMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDauMouseEntered
+        btnDau.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnDauMouseEntered
+
+    private void btnLuiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuiMouseEntered
+        btnLui.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnLuiMouseEntered
+
+    private void btnKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKeMouseEntered
+        btnKe.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnKeMouseEntered
+
+    private void btnCuoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCuoiMouseEntered
+        btnCuoi.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnCuoiMouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCuoi;
@@ -502,7 +576,7 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
 
     boolean kiemtra() {
         NhomThuoc nt = this.getForm();
-        if (nt.getMaNT().equals("") || nt.getTenNT().equals("") || nt.getMoTa().equals("")) {
+        if (nt.getMaNT().equals("") || nt.getTenNT().equals("")) {
             MsgBox.alert(this, "Vui lòng nhập đầy đủ thông tin nhóm thuốc");
             return false;
         }

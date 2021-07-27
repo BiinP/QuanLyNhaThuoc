@@ -76,6 +76,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
         txtUsername.setBackground(new java.awt.Color(28, 40, 89));
         txtUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtUsername.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsername.setText("phucnh");
         txtUsername.setBorder(null);
         txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -121,6 +122,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
         txtPassword.setBackground(new java.awt.Color(28, 40, 89));
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassword.setText("123");
         txtPassword.setBorder(null);
         txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -477,7 +479,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
             } else {
                 MsgBox.alert(this, "Đăng nhập thành công");
                 Auth.user = nv;
-                new QuanLyNhaThuocJFrame1().setVisible(true);
+                new QuanLyNhaThuocJFrame().setVisible(true);
                 this.dispose();
             }
         }

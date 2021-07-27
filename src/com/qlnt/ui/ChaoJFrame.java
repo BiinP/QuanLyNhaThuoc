@@ -13,7 +13,7 @@ import javax.swing.Timer;
  *
  * @author monst
  */
-public class ChaoJFrame extends javax.swing.JFrame implements Runnable{
+public class ChaoJFrame extends javax.swing.JFrame implements Runnable {
 
     /**
      * Creates new form ChaoJFrame
@@ -129,25 +129,12 @@ public class ChaoJFrame extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel lblPercent;
     // End of variables declaration//GEN-END:variables
     int percent = 0;
+
     void init() {
         setLocationRelativeTo(null);
-        
-//        new Timer(30, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int value = jProgressBar1.getValue();
-//                if (value < 100) {
-//                    percent = value + 1;
-//                    lblPercent.setText(String.valueOf(percent) + "%");
-//                    jProgressBar1.setValue(value + 1);
-//                } else {
-//                    ChaoJFrame.this.dispose();
-//                    new DangNhapJFrame().setVisible(true);
-//                }
-//            }
-//        }).start();
     }
     int dem = 0;
+
     @Override
     public void run() {
         while (true) {
@@ -167,5 +154,5 @@ public class ChaoJFrame extends javax.swing.JFrame implements Runnable{
             }
         }
     }
-    
+
 }
