@@ -12,13 +12,13 @@ package com.qlnt.entity;
 public class DanhMucThuoc {
 
     String tenThuoc, soDK, hangSX, noiSX, donViGoc, donViQuiDoi, dongGoi, maNT, hoatChat, TenNT;
-    int maThuoc;
+    String maThuoc;
     double soLuongQuiDoi;
 
     public DanhMucThuoc() {
     }
 
-    public DanhMucThuoc(String tenThuoc, String soDK, String hangSX, String noiSX, String donViGoc, String donViQuiDoi, String dongGoi, String maNT, String hoatChat, int maThuoc, double soLuongQuiDoi, String TenNT) {
+    public DanhMucThuoc(String tenThuoc, String soDK, String hangSX, String noiSX, String donViGoc, String donViQuiDoi, String dongGoi, String maNT, String hoatChat, String maThuoc, double soLuongQuiDoi, String TenNT) {
         this.tenThuoc = tenThuoc;
         this.soDK = soDK;
         this.hangSX = hangSX;
@@ -113,11 +113,11 @@ public class DanhMucThuoc {
         this.hoatChat = hoatChat;
     }
 
-    public int getMaThuoc() {
+    public String getMaThuoc() {
         return maThuoc;
     }
 
-    public void setMaThuoc(int maThuoc) {
+    public void setMaThuoc(String maThuoc) {
         this.maThuoc = maThuoc;
     }
 

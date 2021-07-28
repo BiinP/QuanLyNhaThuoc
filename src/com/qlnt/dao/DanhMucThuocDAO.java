@@ -85,7 +85,7 @@ public class DanhMucThuocDAO extends qlntDAO<DanhMucThuoc, String> {
                 rs = XJdbc.query(sql, args);                
                 while (rs.next()) {
                     DanhMucThuoc dmt = new DanhMucThuoc();
-                    dmt.setMaThuoc(rs.getInt("MaThuoc"));
+                    dmt.setMaThuoc(rs.getString("MaThuoc"));
                     dmt.setTenThuoc(rs.getString("TenThuoc"));
                     dmt.setSoDK(rs.getString("SoDK"));
                     dmt.setNoiSX(rs.getString("NoiSX"));

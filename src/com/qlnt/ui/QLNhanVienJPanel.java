@@ -711,10 +711,12 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
     void fillTable() {
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
         model.setRowCount(0);
+        int i=1;
         try {
             List<NhanVien> list = dao.selectAll();
-            for (NhanVien nv : list) {
+            for (NhanVien nv : list) {                
                 Object[] data = {
+                    i++,
                     nv.getMaNV(),
                     nv.getHoTen(),
                     nv.getMatKhau(),
@@ -778,7 +780,7 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
     }
 
     void edit() {
-        String maNV = (String) tblNhanVien.getValueAt(row, 0);
+        String maNV = (String) tblNhanVien.getValueAt(row, 1);
         tblNhanVien.setRowSelectionInterval(row, row);
         NhanVien nv = dao.selectById(maNV);
         this.setForm(nv);
@@ -885,13 +887,15 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
 //        KhoaHoc khoaHoc = (KhoaHoc) cboKhoaHoc.getSelectedItem();
         String keyword = txtTimkiem.getText();
         List<NhanVien> list = dao.selectNotInCourse(keyword);
+        int i = 1;
         for (NhanVien nv : list) {
             model.addRow(new Object[]{
+                i++,
                 nv.getMaNV(),
                 nv.getHoTen(),
-                nv.getSDT(),
-                nv.getEmail(),
-                nv.isGioiTinh() ? "Nam" : "Nữ",
+//                nv.getSDT(),
+//                nv.getEmail(),
+//                nv.isGioiTinh() ? "Nam" : "Nữ",
                 nv.getMatKhau(),
                 nv.isVaiTro() ? "Quản lý" : "Nhân viên"
             });

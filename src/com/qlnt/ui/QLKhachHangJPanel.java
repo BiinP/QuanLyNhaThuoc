@@ -743,10 +743,10 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
                 i++,
                 kh.getMaKH(),
                 kh.getHoTen(),
-                kh.getSdt(),
-                kh.getDiem(),
                 kh.isGioiTinh() ? "Nam" : "Nữ",
-                kh.getNamSinh()
+                kh.getNamSinh(),
+                kh.getSdt(),
+                kh.getDiem()
             });
         }
     }

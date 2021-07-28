@@ -1055,7 +1055,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
                 btnMinusActionPerformed(evt);
             }
         });
-        TittleBar.add(btnMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, -1, -1));
+        TittleBar.add(btnMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, -1, 10));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/close.png"))); // NOI18N
         btnClose.setBorder(null);
@@ -1078,7 +1078,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
                 btnCloseActionPerformed(evt);
             }
         });
-        TittleBar.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, -1, -1));
+        TittleBar.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, -1, 30));
 
         getContentPane().add(TittleBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, -1, 30));
 
@@ -1088,13 +1088,12 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         pnlStatusbar.setPreferredSize(new java.awt.Dimension(1000, 30));
         pnlStatusbar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTime.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTime.setForeground(new java.awt.Color(255, 255, 255));
         lblTime.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTime.setText("Thứ năm, 15/07/2021");
-        pnlStatusbar.add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 181, -1));
+        pnlStatusbar.add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, 181, -1));
 
-        getContentPane().add(pnlStatusbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 570, -1, -1));
+        getContentPane().add(pnlStatusbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 580, -1, 20));
 
         TabMain.setMaximumSize(new java.awt.Dimension(1000, 570));
         TabMain.setMinimumSize(new java.awt.Dimension(1000, 570));
@@ -1597,11 +1596,15 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     QLHangHoaJPanel TabQLHangHoa;
 
     void openQLHangHoa() {
-        if (TabQLHangHoa == null) {
-            TabQLHangHoa = new QLHangHoaJPanel();
-            TabMain.addTab("", TabQLHangHoa);
+        if (Auth.isLogin()) {
+            if (TabQLHangHoa == null) {
+                TabQLHangHoa = new QLHangHoaJPanel();
+                TabMain.addTab("", TabQLHangHoa);
+            }
+            TabMain.setSelectedComponent(TabQLHangHoa);
+        } else {
+            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
         }
-        TabMain.setSelectedComponent(TabQLHangHoa);
     }
     QLHoaDonJPanel TabQLHD;
 

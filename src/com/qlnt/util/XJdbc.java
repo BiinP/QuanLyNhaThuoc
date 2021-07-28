@@ -34,18 +34,18 @@ public class XJdbc {
         PreparedStatement pstm = null;
         if(sql.trim().startsWith("{")){
             pstm = con.prepareCall(sql);
-        }else{
+        }else{            
             pstm = con.prepareStatement(sql);
         }
         for(int i = 0; i<args.length;i++){
-            pstm.setObject(i+1, args[i]);
-        }
+            pstm.setObject(i+1, args[i]);                       
+        }        
         return pstm;
     }
     public static void update(String sql, Object...args){
         try {
             PreparedStatement pstm = XJdbc.getStm(sql, args);
-            try {
+            try {                
                 pstm.executeUpdate();
             } finally{
                 pstm.getConnection().close();
