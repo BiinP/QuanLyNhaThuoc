@@ -20,7 +20,7 @@ public class KhachHangDAO extends qlntDAO<KhachHang, String> {
 
     @Override
     public void insert(KhachHang khachhang) {
-        String sql = "INSERT into KhachHang (MaKH, HoTen, GioiTinh, SDT, NamSinh, Diem) values(?,?,?,?,?,?)";
+        String sql = "INSERT into KhachHang (MaKH, TenKH, GioiTinh, SDT, NamSinh, Diem) values(?,?,?,?,?,?)";
         XJdbc.update(sql,
                 khachhang.getMaKH(),
                 khachhang.getHoTen(),
@@ -33,7 +33,7 @@ public class KhachHangDAO extends qlntDAO<KhachHang, String> {
 
     @Override
     public void update(KhachHang khachhang) {
-        String sql = "UPDATE KhachHang SET HoTen=?, GioiTinh=?, Diem=?, NamSinh=?, SDT=? WHERE MaKH=?";
+        String sql = "UPDATE KhachHang SET TenKH=?, GioiTinh=?, Diem=?, NamSinh=?, SDT=? WHERE MaKH=?";
         XJdbc.update(sql,
                 khachhang.getHoTen(),
                 khachhang.isGioiTinh(),
@@ -73,7 +73,7 @@ public class KhachHangDAO extends qlntDAO<KhachHang, String> {
                 while (rs.next()) {
                     KhachHang kh = new KhachHang();
                     kh.setMaKH(rs.getString("MaKH"));
-                    kh.setHoTen(rs.getString("HoTen"));
+                    kh.setHoTen(rs.getString("TenKH"));
                     kh.setDiem(Double.valueOf(rs.getString("Diem")));                    
                     kh.setSdt(rs.getString("SDT"));
                     kh.setNamSinh(Integer.valueOf(rs.getString("NamSinh")));
@@ -90,7 +90,7 @@ public class KhachHangDAO extends qlntDAO<KhachHang, String> {
         return list;
     }
     public List<KhachHang> selectNotInCourse(String keyword) {
-        String sql="SELECT * FROM KhachHang WHERE HoTen LIKE ?";                
+        String sql="SELECT * FROM KhachHang WHERE TenKH LIKE ?";                
         return this.selectBySql(sql, "%"+keyword+"%");
     }
 }

@@ -78,11 +78,14 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
 
         txtTenNT.setBackground(new java.awt.Color(51, 140, 180));
         txtTenNT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTenNT.setForeground(new java.awt.Color(255, 255, 255));
         txtTenNT.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtTenNT.setOpaque(false);
 
+        txtMaNT.setEditable(false);
         txtMaNT.setBackground(new java.awt.Color(51, 140, 180));
         txtMaNT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtMaNT.setForeground(new java.awt.Color(255, 255, 255));
         txtMaNT.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtMaNT.setOpaque(false);
         txtMaNT.addActionListener(new java.awt.event.ActionListener() {
@@ -221,6 +224,7 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
 
         txtMoTa.setBackground(new java.awt.Color(51, 140, 180));
         txtMoTa.setColumns(20);
+        txtMoTa.setForeground(new java.awt.Color(255, 255, 255));
         txtMoTa.setRows(5);
         txtMoTa.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jScrollPane2.setViewportView(txtMoTa);

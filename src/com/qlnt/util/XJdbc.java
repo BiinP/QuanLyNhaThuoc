@@ -58,7 +58,7 @@ public class XJdbc {
     }
     public static ResultSet query(String sql, Object...args){
         try {
-            PreparedStatement pstm = XJdbc.getStm(sql, args);
+            PreparedStatement pstm = XJdbc.getStm(sql, args);            
             return pstm.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();

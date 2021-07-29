@@ -1609,11 +1609,15 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     QLHoaDonJPanel TabQLHD;
 
     void openQLHD() {
-        if (TabQLHD == null) {
-            TabQLHD = new QLHoaDonJPanel();
-            TabMain.addTab("", TabQLHD);
+        if (Auth.isLogin()) {
+            if (TabQLHD == null) {
+                TabQLHD = new QLHoaDonJPanel();
+                TabMain.addTab("", TabQLHD);
+            }
+            TabMain.setSelectedComponent(TabQLHD);
+        }else {
+            MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
         }
-        TabMain.setSelectedComponent(TabQLHD);
     }
     QLKhachHangJPanel TabQLKH;
 

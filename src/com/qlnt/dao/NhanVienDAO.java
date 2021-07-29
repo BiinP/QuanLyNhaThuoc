@@ -20,7 +20,7 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
 
     @Override
     public void insert(NhanVien nhanvien) {
-        String sql = "INSERT into NhanVien (MaNV, HoTen, MatKhau, GioiTinh, VaiTro, Email, SDT) values(?,?,?,?,?,?,?)";
+        String sql = "INSERT into NhanVien (MaNV, TenNV, MatKhau, GioiTinh, VaiTro, Email, SDT) values(?,?,?,?,?,?,?)";
         XJdbc.update(sql,
                 nhanvien.getMaNV(),
                 nhanvien.getHoTen(),
@@ -34,7 +34,7 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
 
     @Override
     public void update(NhanVien nhanvien) {
-        String sql = "UPDATE NhanVien SET HoTen=?, MatKhau=?,GioiTinh=?, VaiTro=?, Email=?, SDT=? WHERE MaNV=?";
+        String sql = "UPDATE NhanVien SET TenNV=?, MatKhau=?,GioiTinh=?, VaiTro=?, Email=?, SDT=? WHERE MaNV=?";
         XJdbc.update(sql,
                 nhanvien.getHoTen(),
                 nhanvien.getMatKhau(),
@@ -75,7 +75,7 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
                 while (rs.next()) {
                     NhanVien nv = new NhanVien();
                     nv.setMaNV(rs.getString("MaNV"));
-                    nv.setHoTen(rs.getString("HoTen"));
+                    nv.setHoTen(rs.getString("TenNV"));
                     nv.setMatKhau(rs.getString("MatKhau"));
                     nv.setVaiTro(rs.getBoolean("VaiTro"));
                     nv.setSDT(rs.getString("SDT"));
@@ -93,7 +93,7 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
         return list;
     }
     public List<NhanVien> selectNotInCourse(String keyword) {
-        String sql="SELECT * FROM NhanVien WHERE HoTen LIKE ?";                
+        String sql="SELECT * FROM NhanVien WHERE TenNV LIKE ?";                
         return this.selectBySql(sql, "%"+keyword+"%");
     }
 

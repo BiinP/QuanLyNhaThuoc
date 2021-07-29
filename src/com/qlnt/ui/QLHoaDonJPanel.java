@@ -5,9 +5,25 @@
  */
 package com.qlnt.ui;
 
+import com.qlnt.dao.HangHoaDAO;
+import com.qlnt.dao.HoaDonChiTietDAO;
+import com.qlnt.dao.HoaDonDAO;
+import com.qlnt.dao.KhachHangDAO;
+import com.qlnt.dao.NhanVienDAO;
+import com.qlnt.entity.HangHoa;
+import com.qlnt.entity.HoaDon;
+import com.qlnt.entity.HoaDonChiTiet;
+import com.qlnt.entity.KhachHang;
+import com.qlnt.util.Auth;
+import com.qlnt.util.MsgBox;
+import com.qlnt.util.XDate;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Date;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,6 +49,14 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
 
         grGioiTinh = new javax.swing.ButtonGroup();
         grVaiTro = new javax.swing.ButtonGroup();
+        pnlMaHD = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstMaHD = new javax.swing.JList<>();
+        popMaHD = new javax.swing.JPopupMenu();
+        pnlTenKH = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstTenKH = new javax.swing.JList<>();
+        popTenKH = new javax.swing.JPopupMenu();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -61,6 +85,46 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
 
+        lstMaHD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstMaHDMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(lstMaHD);
+
+        javax.swing.GroupLayout pnlMaHDLayout = new javax.swing.GroupLayout(pnlMaHD);
+        pnlMaHD.setLayout(pnlMaHDLayout);
+        pnlMaHDLayout.setHorizontalGroup(
+            pnlMaHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+        );
+        pnlMaHDLayout.setVerticalGroup(
+            pnlMaHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        popMaHD.setFocusable(false);
+
+        lstTenKH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstTenKHMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(lstTenKH);
+
+        javax.swing.GroupLayout pnlTenKHLayout = new javax.swing.GroupLayout(pnlTenKH);
+        pnlTenKH.setLayout(pnlTenKHLayout);
+        pnlTenKHLayout.setHorizontalGroup(
+            pnlTenKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+        );
+        pnlTenKHLayout.setVerticalGroup(
+            pnlTenKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        popTenKH.setFocusable(false);
+
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1000, 570));
         setMinimumSize(new java.awt.Dimension(1000, 570));
@@ -70,16 +134,18 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         jPanel2.setMaximumSize(new java.awt.Dimension(500, 610));
         jPanel2.setMinimumSize(new java.awt.Dimension(500, 610));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Mã hóa đơn:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Mã nhân viên:");
 
         txtMaHD.setEditable(false);
+        txtMaHD.setBackground(new java.awt.Color(51, 140, 180));
         txtMaHD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtMaHD.setForeground(new java.awt.Color(255, 255, 255));
         txtMaHD.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtMaHD.setOpaque(false);
         txtMaHD.addActionListener(new java.awt.event.ActionListener() {
@@ -89,34 +155,42 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         });
 
         txtMaNV.setEditable(false);
+        txtMaNV.setBackground(new java.awt.Color(51, 140, 180));
         txtMaNV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtMaNV.setForeground(new java.awt.Color(255, 255, 255));
         txtMaNV.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtMaNV.setOpaque(false);
 
         txtMaKH.setEditable(false);
+        txtMaKH.setBackground(new java.awt.Color(51, 140, 180));
         txtMaKH.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtMaKH.setForeground(new java.awt.Color(255, 255, 255));
         txtMaKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtMaKH.setOpaque(false);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Mã khách hàng:");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Tên khách hàng:");
 
         txtTenKH.setEditable(false);
+        txtTenKH.setBackground(new java.awt.Color(51, 140, 180));
         txtTenKH.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTenKH.setForeground(new java.awt.Color(255, 255, 255));
         txtTenKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtTenKH.setOpaque(false);
 
         txtNgayBan.setEditable(false);
+        txtNgayBan.setBackground(new java.awt.Color(51, 140, 180));
         txtNgayBan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNgayBan.setForeground(new java.awt.Color(255, 255, 255));
         txtNgayBan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtNgayBan.setOpaque(false);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Ngày bán:");
 
@@ -156,20 +230,20 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         tblChiTietHD.setAutoCreateRowSorter(true);
         tblChiTietHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "STT", "Tên HH", "Số lô", "Số lượng", "Đơn giá", "Thành tiền"
+                "Tên HH", "Số lô", "Số lượng", "Đơn giá", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -229,22 +303,20 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 2, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addContainerGap())))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnXoa)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnXoa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnDau)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLui)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnKe)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCuoi)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnDau)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLui)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnKe)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCuoi)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +343,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +351,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                     .addComponent(btnLui)
                     .addComponent(btnKe)
                     .addComponent(btnCuoi))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 610));
@@ -290,45 +362,46 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(500, 610));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSearch.png"))); // NOI18N
+        lblTim.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTim.setText("Nhập mã hóa đơn:");
         lblTim.setMaximumSize(new java.awt.Dimension(30, 30));
         lblTim.setMinimumSize(new java.awt.Dimension(30, 30));
         lblTim.setPreferredSize(new java.awt.Dimension(30, 30));
-        jPanel3.add(lblTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        jPanel3.add(lblTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 120, -1));
 
         txtHDTimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtHDTimKiem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtHDTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtHDTimKiemFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtHDTimKiemFocusLost(evt);
+        txtHDTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtHDTimKiemKeyReleased(evt);
             }
         });
-        jPanel3.add(txtHDTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 350, 32));
+        jPanel3.add(txtHDTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 320, 32));
 
         txtKHTimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtKHTimKiem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtKHTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtKHTimKiemFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtKHTimKiemFocusLost(evt);
+        txtKHTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKHTimKiemKeyReleased(evt);
             }
         });
-        jPanel3.add(txtKHTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 350, 32));
+        jPanel3.add(txtKHTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 320, 32));
 
-        lblTim1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSearch.png"))); // NOI18N
+        lblTim1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTim1.setText("Tên khách hàng:");
         lblTim1.setMaximumSize(new java.awt.Dimension(30, 30));
         lblTim1.setMinimumSize(new java.awt.Dimension(30, 30));
         lblTim1.setPreferredSize(new java.awt.Dimension(30, 30));
-        jPanel3.add(lblTim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
+        jPanel3.add(lblTim1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 120, -1));
 
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnTimKiem.png"))); // NOI18N
         btnTimKiem.setBorder(null);
         btnTimKiem.setContentAreaFilled(false);
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 80, -1));
 
         tblHoaDon.setAutoCreateRowSorter(true);
@@ -366,6 +439,11 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         tblHoaDon.setShowHorizontalLines(false);
         tblHoaDon.setShowVerticalLines(false);
         tblHoaDon.getTableHeader().setReorderingAllowed(false);
+        tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHoaDonMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblHoaDon);
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 470, 130));
@@ -378,32 +456,57 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtMaHDActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
+        delete();
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void txtHDTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHDTimKiemFocusGained
-        if (txtHDTimKiem.getText().equals("Nhập mã hóa đơn cần tìm")) {
-            txtHDTimKiem.setText("");
-        }
-    }//GEN-LAST:event_txtHDTimKiemFocusGained
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        timHoaDon();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
-    private void txtHDTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHDTimKiemFocusLost
-        if (txtHDTimKiem.getText().equals("")) {
-            txtHDTimKiem.setText("Nhập mã hóa đơn cần tìm");
-        }
-    }//GEN-LAST:event_txtHDTimKiemFocusLost
+    private void lstMaHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMaHDMouseClicked
+        txtHDTimKiem.setText(lstMaHD.getSelectedValue());
+        popMaHD.setVisible(false);
+    }//GEN-LAST:event_lstMaHDMouseClicked
 
-    private void txtKHTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKHTimKiemFocusGained
-        if (txtKHTimKiem.getText().equals("Nhập tên khách hàng cần tìm")) {
-            txtKHTimKiem.setText("");
-        }
-    }//GEN-LAST:event_txtKHTimKiemFocusGained
+    private void lstTenKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTenKHMouseClicked
+        txtKHTimKiem.setText(lstTenKH.getSelectedValue());
+        popTenKH.setVisible(false);
+    }//GEN-LAST:event_lstTenKHMouseClicked
 
-    private void txtKHTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtKHTimKiemFocusLost
-        if (txtKHTimKiem.getText().equals("")) {
-            txtKHTimKiem.setText("Nhập tên khách hàng cần tìm");
+    private void txtHDTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHDTimKiemKeyReleased
+        String keyTenKH = txtHDTimKiem.getText().trim();
+        if (!keyTenKH.equals("")) {
+            List<HoaDon> list = dao.selectNotInCourse(keyTenKH, "");
+            DefaultListModel model = new DefaultListModel();
+            model.setSize(0);
+            for (HoaDon hd : list) {
+                model.addElement(hd.getMaHD());
+                lstMaHD.setModel(model);
+            }
+            popMaHD.show(txtHDTimKiem, 0, txtHDTimKiem.getHeight());
         }
-    }//GEN-LAST:event_txtKHTimKiemFocusLost
+    }//GEN-LAST:event_txtHDTimKiemKeyReleased
+
+    private void txtKHTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKHTimKiemKeyReleased
+        String keyTenKH = txtKHTimKiem.getText().trim();
+        if (!keyTenKH.equals("")) {
+            List<KhachHang> list = khdao.selectNotInCourse(keyTenKH);
+            DefaultListModel model = new DefaultListModel();
+            model.setSize(0);
+            for (KhachHang kh : list) {
+                model.addElement(kh.getHoTen());
+                lstTenKH.setModel(model);
+            }
+            popTenKH.show(txtKHTimKiem, 0, txtKHTimKiem.getHeight());
+        }
+    }//GEN-LAST:event_txtKHTimKiemKeyReleased
+
+    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
+        if (evt.getClickCount() == 2) {
+            this.row = tblHoaDon.getSelectedRow();
+            this.edit();
+        }
+    }//GEN-LAST:event_tblHoaDonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -425,8 +528,16 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblTim;
     private javax.swing.JLabel lblTim1;
+    private javax.swing.JList<String> lstMaHD;
+    private javax.swing.JList<String> lstTenKH;
+    private javax.swing.JPanel pnlMaHD;
+    private javax.swing.JPanel pnlTenKH;
+    private javax.swing.JPopupMenu popMaHD;
+    private javax.swing.JPopupMenu popTenKH;
     private javax.swing.JTable tblChiTietHD;
     private javax.swing.JTable tblHoaDon;
     private javax.swing.JTextField txtHDTimKiem;
@@ -439,21 +550,136 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
    void init() {
         initComponents();
-        designBang();
-        txtHDTimKiem.setText("Nhập mã hóa đơn cần tìm");
-        txtKHTimKiem.setText("Nhập tên khách hàng cần tìm");
+        tblChiTietHD.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
+        tblHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
+        popMaHD.add(pnlMaHD);
+        popTenKH.add(pnlTenKH);
+        fillTable();
+        this.updateStatus();
+    }
+    int row = -1;
+    HoaDonDAO dao = new HoaDonDAO();
+    HoaDonChiTietDAO cthddao = new HoaDonChiTietDAO();
+    HangHoaDAO hhdao = new HangHoaDAO();
+    KhachHangDAO khdao = new KhachHangDAO();
+
+    void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+        model.setRowCount(0);
+        int i = 1;
+        try {
+            List<HoaDon> list = dao.selectAll();
+            for (HoaDon hd : list) {
+                Object[] data = {
+                    i++,
+                    hd.getMaHD(),
+                    hd.getTenKH(),
+                    hd.getTenNV(),
+                    hd.getTongTien(),
+                    XDate.toString(hd.getNgayBan(), "MM/dd/yyyy")
+                };
+                model.addRow(data);
+            }
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lỗi truy vấn dữ liệu");
+        }
     }
 
-    void designBang() {
-        tblChiTietHD.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
-        tblChiTietHD.getTableHeader().setOpaque(false);
-        tblChiTietHD.getTableHeader().setBackground(new Color(24, 116, 168));
-        tblChiTietHD.getTableHeader().setForeground(Color.WHITE);
-        tblChiTietHD.setRowHeight(30);
-        tblHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
-        tblHoaDon.getTableHeader().setOpaque(false);
-        tblHoaDon.getTableHeader().setBackground(new Color(24,116,168));
-        tblHoaDon.getTableHeader().setForeground(Color.WHITE);
-        tblHoaDon.setRowHeight(30);
+    void timHoaDon() {
+        String maHD = txtHDTimKiem.getText();
+        String tenKH = txtKHTimKiem.getText();
+        DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+        model.setRowCount(0);
+        int i = 1;
+        try {
+            List<HoaDon> list = dao.selectNotInCourse(maHD, tenKH);
+            for (HoaDon hd : list) {
+                Object[] data = {
+                    i++,
+                    hd.getMaHD(),
+                    hd.getTenKH(),
+                    hd.getTenNV(),
+                    hd.getTongTien(),
+                    XDate.toString(hd.getNgayBan(), "MM/dd/yyyy")
+                };
+                model.addRow(data);
+            }
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lỗi truy vấn dữ liệu");
+        }
+    }
+
+    void setForm(HoaDon hd) {
+        txtMaHD.setText(hd.getMaHD());
+        txtMaKH.setText(hd.getMaKH());
+        txtMaNV.setText(hd.getMaNV());
+        txtNgayBan.setText(XDate.toString(hd.getNgayBan(), "MM/dd/yyyy"));
+        txtTenKH.setText(hd.getTenKH());
+    }
+
+    void edit() {
+        String maHD = String.valueOf(tblHoaDon.getValueAt(row, 1));
+        tblHoaDon.setRowSelectionInterval(row, row);
+        HoaDon hd = dao.selectById(maHD);
+        this.setForm(hd);
+        this.updateStatus();
+
+        DefaultTableModel model = (DefaultTableModel) tblChiTietHD.getModel();
+        model.setRowCount(0);
+        try {
+            System.out.println(maHD);
+            List<HoaDonChiTiet> list = cthddao.selectNotInCourse(maHD);
+            for (HoaDonChiTiet hdct1 : list) {
+                Object data[] = {
+                    hhdao.selectById(hdct1.getMaHH()).getTenThuoc(),
+                    hhdao.selectById(hdct1.getMaHH()).getSoLo(),
+                    hdct1.getSoLuong(),
+                    hhdao.selectById(hdct1.getMaHH()).getGiaBan(),
+                    dao.selectById(hdct1.getMaHD()).getTongTien()
+                };
+                model.addRow(data);
+            }
+
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lỗi load dữ liệu bảng");
+        }
+    }
+
+    void updateStatus() {
+        boolean edit = (this.row >= 0);
+        boolean first = (this.row == 0);
+        boolean last = (this.row == (tblHoaDon.getRowCount() - 1));
+
+        btnXoa.setEnabled(edit);
+
+        btnDau.setEnabled(edit && !first);
+        btnLui.setEnabled(edit && !first);
+        btnCuoi.setEnabled(edit && !last);
+        btnKe.setEnabled(edit && !last);
+    }
+
+    void delete() {
+        String maHD = txtMaHD.getText();
+        if (!Auth.isManager()) {
+            MsgBox.alert(this, "Chỉ quản lý mới được xóa hàng hóa!");
+        } else if (MsgBox.confirm(this, "Bạn có muốn xóa hàng hóa " + maHD + " ?")) {
+            try {
+                cthddao.delete(maHD);
+                dao.delete(maHD);
+                this.fillTable();
+                this.clearForm();
+                MsgBox.alert(this, "Xóa hàng hóa thành công");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Xóa hàng hóa thất bại");
+            }
+        }
+    }
+
+    void clearForm() {
+        HoaDon hd = new HoaDon();
+        hd.setNgayBan(new Date());
+        this.setForm(hd);
+        this.row = -1;
+        this.updateStatus();
     }
 }

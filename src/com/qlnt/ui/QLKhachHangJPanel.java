@@ -77,16 +77,18 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
         jPanel2.setMaximumSize(new java.awt.Dimension(400, 436));
         jPanel2.setMinimumSize(new java.awt.Dimension(400, 436));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Mã khách hàng:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Họ tên:");
 
+        txtMaKH.setEditable(false);
         txtMaKH.setBackground(new java.awt.Color(51, 140, 180));
         txtMaKH.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtMaKH.setForeground(new java.awt.Color(255, 255, 255));
         txtMaKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtMaKH.setOpaque(false);
         txtMaKH.addActionListener(new java.awt.event.ActionListener() {
@@ -97,23 +99,25 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
 
         txtTenKH.setBackground(new java.awt.Color(51, 140, 180));
         txtTenKH.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTenKH.setForeground(new java.awt.Color(255, 255, 255));
         txtTenKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtTenKH.setOpaque(false);
 
         txtNamSinh.setBackground(new java.awt.Color(51, 140, 180));
         txtNamSinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNamSinh.setForeground(new java.awt.Color(255, 255, 255));
         txtNamSinh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtNamSinh.setOpaque(false);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Năm sinh:");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("SDT:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Giới tính:");
 
@@ -237,18 +241,20 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Điểm thân thiết:");
 
         txtSdt.setBackground(new java.awt.Color(51, 140, 180));
         txtSdt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSdt.setForeground(new java.awt.Color(255, 255, 255));
         txtSdt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtSdt.setOpaque(false);
 
         txtDiem.setEditable(false);
         txtDiem.setBackground(new java.awt.Color(51, 140, 180));
         txtDiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtDiem.setForeground(new java.awt.Color(255, 255, 255));
         txtDiem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtDiem.setOpaque(false);
 
@@ -316,7 +322,7 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel14)
                         .addGap(18, 18, 18)
                         .addComponent(txtDiem)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
