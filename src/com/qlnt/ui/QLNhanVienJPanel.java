@@ -14,6 +14,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -236,6 +237,7 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
 
         btnThem.setBackground(new java.awt.Color(59, 151, 203));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnThem.png"))); // NOI18N
+        btnThem.setToolTipText("Alt+Enter");
         btnThem.setBorder(null);
         btnThem.setContentAreaFilled(false);
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -699,8 +701,9 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
         this.updateStatus();
         rdoNam.setSelected(true);
         rdoQuanLy.setSelected(true);
+        btnThem.setMnemonic(KeyEvent.VK_ENTER);
+//        btnSua.setMnemonic(KeyEvent.VK_F2);
     }
-
     void designTable() {        
         tblNhanVien.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
         tblNhanVien.getTableHeader().setForeground(Color.BLACK);
@@ -792,6 +795,12 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
         if (nv.getMaNV().equals("") || nv.getHoTen().equals("") || nv.getEmail().equals("")
                 || nv.getSDT().equals("") || nv.getMatKhau().equals("")) {
             MsgBox.alert(this, "Vui lòng nhập đầy đủ thông tin nhân viên");
+            return false;
+        }else if(!nv.getEmail().matches("^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$")){
+            MsgBox.alert(this, "Email không đúng");
+            return false;
+        }else if(!nv.getSDT().matches("0[0-9\\s.-]{9,10}")){
+            MsgBox.alert(this, "Số điện thoại không đúng");
             return false;
         }
         return true;

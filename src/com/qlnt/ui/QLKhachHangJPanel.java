@@ -498,7 +498,7 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimkiemKeyReleased
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
-        if(evt.getClickCount()==2){
+        if (evt.getClickCount() == 2) {
             this.row = tblKhachHang.getSelectedRow();
             this.edit();
         }
@@ -640,6 +640,7 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
     void clearForm() {
         KhachHang kh = new KhachHang();
         kh.setGioiTinh(true);
+        kh.setDiem(0);
         this.setForm(kh);
         this.row = -1;
         this.updateStatus();
@@ -655,9 +656,13 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
 
     boolean kiemtra() {
         KhachHang kh = this.getForm();
-        if (kh.getMaKH().equals("") || kh.getHoTen().equals("") || Double.valueOf(kh.getDiem()).equals("")
-                || kh.getSdt().equals("") || Integer.valueOf(kh.getNamSinh()).equals("")) {
+        if (kh.getMaKH().equals("") || kh.getHoTen().equals("")) {
             MsgBox.alert(this, "Vui lòng nhập đầy đủ thông tin khách hàng");
+            return false;
+        }else if(String.valueOf(kh.getDiem()).matches("\\d*")){
+            MsgBox.alert(this, "Sai điểm thân thiết");
+        }else if(kh.getSdt().matches("0[0-9\\s.-]{9,10}")){
+            MsgBox.alert(this, "Sai số điện thoại");
             return false;
         }
         return true;

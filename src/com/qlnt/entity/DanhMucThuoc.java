@@ -11,14 +11,14 @@ package com.qlnt.entity;
  */
 public class DanhMucThuoc {
 
-    String tenThuoc, soDK, hangSX, noiSX, donViGoc, donViQuiDoi, dongGoi, maNT, hoatChat, TenNT;
+    String tenThuoc, soDK, hangSX, noiSX, donViGoc, donViQuiDoi, dongGoi, maNT, hoatChat;
     String maThuoc;
     double soLuongQuiDoi;
 
     public DanhMucThuoc() {
     }
 
-    public DanhMucThuoc(String tenThuoc, String soDK, String hangSX, String noiSX, String donViGoc, String donViQuiDoi, String dongGoi, String maNT, String hoatChat, String maThuoc, double soLuongQuiDoi, String TenNT) {
+    public DanhMucThuoc(String tenThuoc, String soDK, String hangSX, String noiSX, String donViGoc, String donViQuiDoi, String dongGoi, String maNT, String hoatChat, String maThuoc, double soLuongQuiDoi) {
         this.tenThuoc = tenThuoc;
         this.soDK = soDK;
         this.hangSX = hangSX;
@@ -30,15 +30,7 @@ public class DanhMucThuoc {
         this.hoatChat = hoatChat;
         this.maThuoc = maThuoc;
         this.soLuongQuiDoi = soLuongQuiDoi;
-        this.TenNT = TenNT;
-    }
 
-    public String getTenNT() {
-        return TenNT;
-    }
-
-    public void setTenNT(String TenNT) {
-        this.TenNT = TenNT;
     }
 
     public String getTenThuoc() {

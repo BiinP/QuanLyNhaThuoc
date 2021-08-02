@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class HangHoa {
 
-    String maHH, maThuoc, soLo, dvGoc, dvQuiDoi, ghiChu, tenThuoc;
+    String maHH, maThuoc, soLo, dvGoc, dvQuiDoi, ghiChu;
     Date HSD, ngayTao = new Date();
     double slGoc, slSauQuiDoi, giaVon, giaBan;   
 
@@ -30,13 +30,7 @@ public class HangHoa {
         this.giaVon = giaVon;
         this.giaBan = giaBan;
     }
-    public String getTenThuoc() {
-        return tenThuoc;
-    }
 
-    public void setTenThuoc(String tenThuoc) {
-        this.tenThuoc = tenThuoc;
-    }
     public HangHoa() {
     }
 

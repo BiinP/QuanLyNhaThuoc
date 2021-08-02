@@ -374,6 +374,7 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Ngày tạo:");
 
+        txtNgayTao.setEditable(false);
         txtNgayTao.setBackground(new java.awt.Color(51, 140, 180));
         txtNgayTao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNgayTao.setForeground(new java.awt.Color(255, 255, 255));
@@ -910,9 +911,9 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
                 Object[] data = {
                     i++,
                     hanghoa.getMaHH(),
-                    hanghoa.getTenThuoc(),
+                    dmtdao.selectById(hanghoa.getMaThuoc()).getTenThuoc(),
                     hanghoa.getSoLo(),
-                    XDate.toString(hanghoa.getHSD(), "MM/dd/yyyy"),
+                    XDate.toString(hanghoa.getHSD(), "dd/MM/yyyy"),
                     hanghoa.getSlGoc(),
                     hanghoa.getDvGoc()
                 };
@@ -925,9 +926,9 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
 
     void setForm(HangHoa hanghoa) {
         txtMaHH.setText(hanghoa.getMaHH());
-        txtTenHH.setText(hanghoa.getTenThuoc());
+        txtTenHH.setText(dmtdao.selectById(hanghoa.getMaThuoc()).getTenThuoc());
         txtSoLo.setText(hanghoa.getSoLo());
-        txtHSD.setText(XDate.toString(hanghoa.getHSD(), "MM/dd/yyyy"));
+        txtHSD.setText(XDate.toString(hanghoa.getHSD(), "dd/MM/yyyy"));
         txtSoLuongGoc.setText(String.valueOf(hanghoa.getSlGoc()));
         txtDVGoc.setText(hanghoa.getDvGoc());
         txtSoLuongQuiDoi.setText(String.valueOf(hanghoa.getSlSauQuiDoi()));
@@ -935,21 +936,20 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
         txtGiaVon.setText(String.valueOf(hanghoa.getGiaVon()));
         txtGiaBan.setText(String.valueOf(hanghoa.getGiaBan()));
         txtGhiChu.setText(hanghoa.getGhiChu());
-        txtNgayTao.setText(XDate.toString(hanghoa.getNgayTao(), "MM/dd/yyyy"));
+        txtNgayTao.setText(XDate.toString(hanghoa.getNgayTao(), "dd/MM/yyyy"));
     }
 
     HangHoa getForm() {
 
         HangHoa hanghoa = new HangHoa();
         hanghoa.setMaHH(txtMaHH.getText());
-
         String keyword = txtTenHH.getText();
         List<DanhMucThuoc> list = dmtdao.selectNotInCourse(keyword);
         for (DanhMucThuoc dmt : list) {
             hanghoa.setMaThuoc(dmt.getMaThuoc());
         }
         hanghoa.setSoLo(txtSoLo.getText());
-        hanghoa.setHSD(XDate.toDate(txtHSD.getText(), "MM/dd/yyyy"));
+        hanghoa.setHSD(XDate.toDate(txtHSD.getText(), "dd/MM/yyyy"));
         hanghoa.setSlGoc(Double.valueOf(txtSoLuongGoc.getText()));
         hanghoa.setDvGoc(txtDVGoc.getText());
         hanghoa.setSlSauQuiDoi(Double.valueOf(txtSoLuongQuiDoi.getText()));
@@ -957,8 +957,7 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
         hanghoa.setGiaVon(Double.valueOf(txtGiaVon.getText()));
         hanghoa.setGiaBan(Double.valueOf(txtGiaBan.getText()));
         hanghoa.setGhiChu(txtGhiChu.getText());
-        hanghoa.setTenThuoc(txtTenHH.getText());
-        hanghoa.setNgayTao(XDate.toDate(txtNgayTao.getText(), "MM/dd/yyyy"));
+        hanghoa.setNgayTao(XDate.toDate(txtNgayTao.getText(), "dd/MM/yyyy"));
         return hanghoa;
     }
 
@@ -978,10 +977,17 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
     }
 
     void clearForm() {
-        HangHoa hanghoa = new HangHoa();
-        hanghoa.setNgayTao(new Date());
-        hanghoa.setHSD(XDate.addDays(new Date(), 30));
-        this.setForm(hanghoa);
+        txtTenHH.setText("");
+        txtSoLo.setText("");
+        txtHSD.setText(XDate.toString(XDate.addDays(new Date(), 30), "dd/MM/yyyy"));
+        txtSoLuongGoc.setText("");
+        txtDVGoc.setText("");
+        txtSoLuongQuiDoi.setText("");
+        txtDVQuiDoi.setText("");
+        txtGiaVon.setText("");
+        txtGiaBan.setText("");
+        txtGhiChu.setText("");
+        txtNgayTao.setText(XDate.toString(new Date(), "dd/MM/yyyy"));
         txtMaHH.setText("Mã tự động");
         this.row = -1;
         this.updateStatus();
@@ -996,7 +1002,6 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
     }
 
     boolean kiemtra() {
-        System.out.println(txtSoLuongGoc.getText());
         if (txtTenHH.getText().equals("")
                 || txtSoLo.getText().equals("")
                 || txtHSD.getText().equals("")
@@ -1100,18 +1105,34 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblHangHoa.getModel();
         model.setRowCount(0);
         int i = 1;
-        List<HangHoa> list = dao.selectNotInCourse(keyword);
-        for (HangHoa hanghoa : list) {
-            model.addRow(new Object[]{
-                i++,
-                hanghoa.getMaHH(),
-                hanghoa.getTenThuoc(),
-                hanghoa.getSoLo(),
-                XDate.toString(hanghoa.getHSD(), "MM/dd/yyyy"),
-                hanghoa.getSlGoc(),
-                hanghoa.getDvGoc()
-            });
+        List<DanhMucThuoc> list = dmtdao.selectNotInCourse(keyword);
+        for (DanhMucThuoc dmt : list) {
+            List<HangHoa> listhh = dao.selectNotInCourse(dmt.getMaThuoc());
+            for (HangHoa hh : listhh) {
+                model.addRow(new Object[]{
+                    i++,
+                    hh.getMaHH(),
+                    dmt.getTenThuoc(),
+                    hh.getSoLo(),
+                    XDate.toString(hh.getHSD(), "dd/MM/yyyy"),
+                    hh.getSlGoc(),
+                    hh.getDvGoc()
+                });
+            }
+
         }
+//        List<HangHoa> list = dao.selectNotInCourse(keyword);
+//        for (HangHoa hanghoa : list) {
+//            model.addRow(new Object[]{
+//                i++,
+//                hanghoa.getMaHH(),
+//                dmtdao.selectById(hanghoa.getMaThuoc()).getTenThuoc(),
+//                hanghoa.getSoLo(),
+//                XDate.toString(hanghoa.getHSD(), "dd/MM/yyyy"),
+//                hanghoa.getSlGoc(),
+//                hanghoa.getDvGoc()
+//            });
+//        }
     }
 
     void fillDonVi() {

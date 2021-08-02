@@ -10,34 +10,32 @@ import com.qlnt.dao.HangHoaDAO;
 import com.qlnt.dao.HoaDonChiTietDAO;
 import com.qlnt.dao.HoaDonDAO;
 import com.qlnt.dao.KhachHangDAO;
-import com.qlnt.dao.NhanVienDAO;
-import com.qlnt.entity.HangHoa;
 import com.qlnt.entity.HoaDon;
 import com.qlnt.entity.HoaDonChiTiet;
 import com.qlnt.entity.KhachHang;
 import com.qlnt.util.Auth;
 import com.qlnt.util.MsgBox;
 import com.qlnt.util.XDate;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import static java.awt.Frame.HAND_CURSOR;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author monst
  */
-public class QLHoaDonJPanel extends javax.swing.JPanel {
+public class TimHoaDonJDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form TongQuanJPannel
+     * Creates new form TimHoaDonJDialog
      */
-    public QLHoaDonJPanel() {
+    public TimHoaDonJDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
         init();
     }
 
@@ -50,8 +48,6 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        grGioiTinh = new javax.swing.ButtonGroup();
-        grVaiTro = new javax.swing.ButtonGroup();
         pnlMaHD = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         lstMaHD = new javax.swing.JList<>();
@@ -75,8 +71,8 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblChiTietHD = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblTim = new javax.swing.JLabel();
         txtHDTimKiem = new javax.swing.JTextField();
@@ -85,10 +81,6 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         btnTimKiem = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
-        btnCuoi = new javax.swing.JButton();
-        btnKe = new javax.swing.JButton();
-        btnLui = new javax.swing.JButton();
-        btnDau = new javax.swing.JButton();
 
         lstMaHD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -130,10 +122,11 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
 
         popTenKH.setFocusable(false);
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1000, 570));
         setMinimumSize(new java.awt.Dimension(1000, 570));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setPreferredSize(new java.awt.Dimension(1000, 570));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 140, 180));
         jPanel2.setMaximumSize(new java.awt.Dimension(500, 610));
@@ -200,7 +193,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         jLabel13.setText("Ngày bán:");
 
         btnXoa.setBackground(new java.awt.Color(59, 151, 203));
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnXoa.png"))); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnChon.png"))); // NOI18N
         btnXoa.setBorder(null);
         btnXoa.setContentAreaFilled(false);
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -268,11 +261,11 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
         );
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setText("Tổng Tiền:");
-
         lblTongTien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTongTien.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("Tổng Tiền:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -299,15 +292,14 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 2, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(btnXoa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,15 +326,15 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 610));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 660));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setMaximumSize(new java.awt.Dimension(500, 610));
@@ -434,96 +426,24 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblHoaDon);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 470, 300));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 470, 130));
 
-        btnCuoi.setBackground(new java.awt.Color(59, 151, 203));
-        btnCuoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnCuoi.png"))); // NOI18N
-        btnCuoi.setBorder(null);
-        btnCuoi.setContentAreaFilled(false);
-        btnCuoi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCuoiMouseEntered(evt);
-            }
-        });
-        btnCuoi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCuoiActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnCuoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 450, -1, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 520, 660));
 
-        btnKe.setBackground(new java.awt.Color(59, 151, 203));
-        btnKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnKeTiep.png"))); // NOI18N
-        btnKe.setBorder(null);
-        btnKe.setContentAreaFilled(false);
-        btnKe.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnKeMouseEntered(evt);
-            }
-        });
-        btnKe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKeActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, -1, -1));
-
-        btnLui.setBackground(new java.awt.Color(59, 151, 203));
-        btnLui.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnLui.png"))); // NOI18N
-        btnLui.setBorder(null);
-        btnLui.setContentAreaFilled(false);
-        btnLui.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLuiMouseEntered(evt);
-            }
-        });
-        btnLui.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuiActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnLui, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, -1, -1));
-
-        btnDau.setBackground(new java.awt.Color(59, 151, 203));
-        btnDau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnDau.png"))); // NOI18N
-        btnDau.setBorder(null);
-        btnDau.setContentAreaFilled(false);
-        btnDau.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDauMouseEntered(evt);
-            }
-        });
-        btnDau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDauActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, -1, -1));
-
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 510, -1));
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtMaHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaHDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaHDActionPerformed
 
+    private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
+        btnXoa.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnXoaMouseEntered
+
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        delete();
+        ChonHD();
     }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        timHoaDon();
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    private void lstMaHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMaHDMouseClicked
-        txtHDTimKiem.setText(lstMaHD.getSelectedValue());
-        popMaHD.setVisible(false);
-    }//GEN-LAST:event_lstMaHDMouseClicked
-
-    private void lstTenKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTenKHMouseClicked
-        txtKHTimKiem.setText(lstTenKH.getSelectedValue());
-        popTenKH.setVisible(false);
-    }//GEN-LAST:event_lstTenKHMouseClicked
 
     private void txtHDTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHDTimKiemKeyReleased
         String keyTenKH = txtHDTimKiem.getText().trim();
@@ -553,6 +473,10 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtKHTimKiemKeyReleased
 
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        timHoaDon();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         if (evt.getClickCount() == 2) {
             this.row = tblHoaDon.getSelectedRow();
@@ -560,52 +484,61 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
-    private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
-        btnXoa.setCursor(new Cursor(HAND_CURSOR));
-    }//GEN-LAST:event_btnXoaMouseEntered
+    private void lstMaHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMaHDMouseClicked
+        txtHDTimKiem.setText(lstMaHD.getSelectedValue());
+        popMaHD.setVisible(false);
+    }//GEN-LAST:event_lstMaHDMouseClicked
 
-    private void btnDauMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDauMouseEntered
-        btnDau.setCursor(new Cursor(HAND_CURSOR));
-    }//GEN-LAST:event_btnDauMouseEntered
+    private void lstTenKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTenKHMouseClicked
+        txtKHTimKiem.setText(lstTenKH.getSelectedValue());
+        popTenKH.setVisible(false);
+    }//GEN-LAST:event_lstTenKHMouseClicked
 
-    private void btnLuiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuiMouseEntered
-        btnLui.setCursor(new Cursor(HAND_CURSOR));
-    }//GEN-LAST:event_btnLuiMouseEntered
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TimHoaDonJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TimHoaDonJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TimHoaDonJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TimHoaDonJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-    private void btnKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKeMouseEntered
-        btnDau.setCursor(new Cursor(HAND_CURSOR));
-    }//GEN-LAST:event_btnKeMouseEntered
-
-    private void btnCuoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCuoiMouseEntered
-        btnCuoi.setCursor(new Cursor(HAND_CURSOR));
-    }//GEN-LAST:event_btnCuoiMouseEntered
-
-    private void btnDauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDauActionPerformed
-        first();
-    }//GEN-LAST:event_btnDauActionPerformed
-
-    private void btnLuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuiActionPerformed
-        prev();
-    }//GEN-LAST:event_btnLuiActionPerformed
-
-    private void btnKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeActionPerformed
-        next();
-    }//GEN-LAST:event_btnKeActionPerformed
-
-    private void btnCuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuoiActionPerformed
-        last();
-    }//GEN-LAST:event_btnCuoiActionPerformed
-
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                TimHoaDonJDialog dialog = new TimHoaDonJDialog(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCuoi;
-    private javax.swing.JButton btnDau;
-    private javax.swing.JButton btnKe;
-    private javax.swing.JButton btnLui;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.ButtonGroup grGioiTinh;
-    private javax.swing.ButtonGroup grVaiTro;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel4;
@@ -638,14 +571,14 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtNgayBan;
     private javax.swing.JTextField txtTenKH;
     // End of variables declaration//GEN-END:variables
-   void init() {
-        initComponents();
+    void init() {
+        setLocationRelativeTo(this);
         tblChiTietHD.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
         tblHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
         popMaHD.add(pnlMaHD);
         popTenKH.add(pnlTenKH);
         fillTable();
-        this.updateStatus();
+
     }
     int row = -1;
     HoaDonDAO dao = new HoaDonDAO();
@@ -735,7 +668,6 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             MsgBox.alert(this, "Lỗi load dữ liệu bảng");
         }
-
     }
 
     void updateStatus() {
@@ -744,56 +676,6 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         boolean last = (this.row == (tblHoaDon.getRowCount() - 1));
 
         btnXoa.setEnabled(edit);
-
-        btnDau.setEnabled(edit && !first);
-        btnLui.setEnabled(edit && !first);
-        btnCuoi.setEnabled(edit && !last);
-        btnKe.setEnabled(edit && !last);
-    }
-
-    void delete() {
-        String maHD = txtMaHD.getText();
-        if (!Auth.isManager()) {
-            MsgBox.alert(this, "Chỉ quản lý mới được xóa hàng hóa!");
-        } else if (MsgBox.confirm(this, "Bạn có muốn xóa hàng hóa " + maHD + " ?")) {
-            try {
-                cthddao.delete(maHD);
-                dao.delete(maHD);
-                this.fillTable();
-                this.clearForm();
-                MsgBox.alert(this, "Xóa hàng hóa thành công");
-            } catch (Exception e) {
-                MsgBox.alert(this, "Xóa hàng hóa thất bại");
-            }
-        }
-    }
-
-    void first() {
-        this.row = 0;
-        tblHoaDon.setRowSelectionInterval(row, row);
-        this.edit();
-    }
-
-    void next() {
-        if (row < tblHoaDon.getRowCount() - 1) {
-            tblHoaDon.setRowSelectionInterval(row, row);
-            this.row++;
-            this.edit();
-        }
-    }
-
-    void prev() {
-        if (row > 0) {
-            tblHoaDon.setRowSelectionInterval(row, row);
-            this.row--;
-            this.edit();
-        }
-    }
-
-    void last() {
-        tblHoaDon.setRowSelectionInterval(row, row);
-        this.row = tblHoaDon.getRowCount() - 1;
-        this.edit();
     }
 
     void clearForm() {
@@ -802,5 +684,16 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         this.setForm(hd);
         this.row = -1;
         this.updateStatus();
+    }
+
+    private void ChonHD() {
+        this.dispose();
+    }
+
+    public String getMaHD() {
+        return txtMaHD.getText();
+    }
+    public String getMaKH(){
+        return txtMaKH.getText();
     }
 }

@@ -66,8 +66,7 @@ public class HangHoaDAO extends qlntDAO<HangHoa, String>{
 
     @Override
     public HangHoa selectById(String id) {
-        String sql = "SELECT * FROM HANGHOA INNER JOIN DANHMUCTHUOC ON HANGHOA.MATHUOC = "
-                + "DANHMUCTHUOC.MATHUOC WHERE MAHH =?";
+        String sql = "SELECT * FROM HANGHOA WHERE MAHH =?";
         List<HangHoa> list = this.selectBySql(sql, id);
         return list.size() > 0 ? list.get(0) : null;
                 
@@ -75,7 +74,7 @@ public class HangHoaDAO extends qlntDAO<HangHoa, String>{
 
     @Override
     public List<HangHoa> selectAll() {
-        String sql = "SELECT * FROM HANGHOA INNER JOIN DANHMUCTHUOC ON HANGHOA.MATHUOC = DANHMUCTHUOC.MATHUOC";
+        String sql = "SELECT * FROM HANGHOA";
         return this.selectBySql(sql);
     }
 
@@ -99,8 +98,7 @@ public class HangHoaDAO extends qlntDAO<HangHoa, String>{
                     hh.setGiaVon(rs.getDouble("GiaVon"));
                     hh.setGiaBan(rs.getDouble("GiaBan"));
                     hh.setGhiChu(rs.getString("GhiChu"));
-                    hh.setNgayTao(rs.getDate("NgayTao"));
-                    hh.setTenThuoc(rs.getString("TenThuoc"));                    
+                    hh.setNgayTao(rs.getDate("NgayTao"));              
                     list.add(hh);                    
                 }
             } finally {
@@ -113,7 +111,7 @@ public class HangHoaDAO extends qlntDAO<HangHoa, String>{
         return list;
     }
     public List<HangHoa> selectNotInCourse(String keyword) {
-        String sql = "SELECT * FROM HangHoa INNER JOIN DanhMucThuoc ON HangHoa.MaThuoc = DanhMucThuoc.MATHUOC WHERE TenThuoc LIKE ?";        
+        String sql = "SELECT * FROM HangHoa WHERE MaThuoc LIKE ?";        
         return this.selectBySql(sql, "%" + keyword + "%");
     }
 }

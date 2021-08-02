@@ -64,15 +64,14 @@ public class DanhMucThuocDAO extends qlntDAO<DanhMucThuoc, String> {
 
     @Override
     public DanhMucThuoc selectById(String id) {
-        String sql = "SELECT * FROM DanhMucThuoc INNER JOIN "
-                + "NhomThuoc ON DanhMucThuoc.MaNT = NhomThuoc.MaNT WHERE MaThuoc=? ";
+        String sql = "SELECT * FROM DanhMucThuoc WHERE MaThuoc=? ";
         List<DanhMucThuoc> list = this.selectBySql(sql, id);
         return list.size() > 0 ? list.get(0) : null;
     }
-
+    
     @Override
     public List<DanhMucThuoc> selectAll() {
-        String sql = "SELECT * FROM DanhMucThuoc INNER JOIN NhomThuoc ON DanhMucThuoc.MaNT = NhomThuoc.MaNT";
+        String sql = "SELECT * FROM DanhMucThuoc";
         return this.selectBySql(sql);
     }
 
@@ -96,7 +95,6 @@ public class DanhMucThuocDAO extends qlntDAO<DanhMucThuoc, String> {
                     dmt.setDongGoi(rs.getString("DongGoi"));
                     dmt.setMaNT(rs.getString("MaNT"));
                     dmt.setHoatChat(rs.getString("HoatChat"));
-                    dmt.setTenNT(rs.getString("TenNT"));
                     list.add(dmt);
                 }
             } finally {
@@ -110,7 +108,7 @@ public class DanhMucThuocDAO extends qlntDAO<DanhMucThuoc, String> {
     }
 
     public List<DanhMucThuoc> selectNotInCourse(String keyword) {
-        String sql = "SELECT * FROM DanhMucThuoc INNER JOIN NhomThuoc ON DanhMucThuoc.MaNT = NhomThuoc.MaNT WHERE TenThuoc LIKE ?";        
+        String sql = "SELECT * FROM DanhMucThuoc WHERE TenThuoc LIKE ?";        
         return this.selectBySql(sql, "%" + keyword + "%");
     }
 }
