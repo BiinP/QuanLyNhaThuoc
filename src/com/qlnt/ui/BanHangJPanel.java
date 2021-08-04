@@ -675,7 +675,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtKhachTTKeyReleased
 
     private void btnThemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemKHActionPerformed
-
+        openThemKHMoi();
     }//GEN-LAST:event_btnThemKHActionPerformed
 
     private void txtSuaSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSuaSoLuongActionPerformed
@@ -987,6 +987,20 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
             setForm(khdao.selectById(maKH));
         }
+    }
+     private void openThemKHMoi() {
+        QuanLyNhaThuocJFrame qlnt = new QuanLyNhaThuocJFrame();
+        ThemKhachHangJDialog themKH = new ThemKhachHangJDialog(qlnt, true);
+        themKH.setVisible(true);
 
+        String maKH = themKH.getMaKH();
+        if (maKH.equals("")) {
+            fillTableKH();
+        } else {
+            DefaultTableModel model = (DefaultTableModel) tblTimKiemKH.getModel();
+            model.setRowCount(0);
+            KhachHang kh = khdao.selectById(maKH);
+            setForm(kh);
+        }
     }
 }

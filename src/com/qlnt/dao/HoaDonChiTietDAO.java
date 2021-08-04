@@ -21,7 +21,7 @@ public class HoaDonChiTietDAO extends qlntDAO<HoaDonChiTiet, String> {
 
     @Override
     public void insert(HoaDonChiTiet hdct) {
-        String sql = "INSERT INTO HoaDonChiTiet (MaHD, MaHH, SoLuong, DonGia) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO HoaDonChiTiet (MaHDCT, MaHH, SoLuong, DonGia) VALUES (?,?,?,?)";
         XJdbc.update(sql,
                 hdct.getMaHD(),
                 hdct.getMaHH(),
@@ -38,13 +38,13 @@ public class HoaDonChiTietDAO extends qlntDAO<HoaDonChiTiet, String> {
 
     @Override
     public void delete(String id) {
-        String sql = "DELETE FROM HoaDonChiTiet WHERE MaHD=?";
+        String sql = "DELETE FROM HoaDonChiTiet WHERE MaHDCT=?";
         XJdbc.update(sql, id);
     }
 
     @Override
     public HoaDonChiTiet selectById(String id) {
-        String sql = "SELECT * FROM HoaDonChiTiet WHERE MaHD =?";
+        String sql = "SELECT * FROM HoaDonChiTiet WHERE MaHDCT =?";
         List<HoaDonChiTiet> list = this.selectBySql(sql, id);
         return list.size() > 0 ? list.get(0) : null;
     }
@@ -64,7 +64,7 @@ public class HoaDonChiTietDAO extends qlntDAO<HoaDonChiTiet, String> {
                 rs = XJdbc.query(sql, args);
                 while (rs.next()) {
                     HoaDonChiTiet hdct = new HoaDonChiTiet();
-                    hdct.setMaHD(rs.getString("MaHD"));
+                    hdct.setMaHD(rs.getString("MaHDCT"));
                     hdct.setMaHH(rs.getString("MaHH"));
                     hdct.setDonGia(rs.getDouble("DonGia"));
                     hdct.setSoLuong(rs.getDouble("SoLuong"));
@@ -80,7 +80,7 @@ public class HoaDonChiTietDAO extends qlntDAO<HoaDonChiTiet, String> {
         return list;
     }
     public List<HoaDonChiTiet> selectNotInCourse(String keyword) {
-        String sql = "SELECT * FROM HoaDonChiTiet WHERE MaHD Like ?";
+        String sql = "SELECT * FROM HoaDonChiTiet WHERE MaHDCT Like ?";
         return this.selectBySql(sql, "%" + keyword + "%");
     }
 }
