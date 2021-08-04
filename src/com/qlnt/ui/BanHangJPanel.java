@@ -18,17 +18,33 @@ import com.qlnt.entity.KhachHang;
 import com.qlnt.util.Auth;
 import com.qlnt.util.MsgBox;
 import com.qlnt.util.XDate;
+import com.qlnt.util.XJdbc;
 import java.awt.Cursor;
 import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -99,6 +115,8 @@ public class BanHangJPanel extends javax.swing.JPanel {
         btnHD = new javax.swing.JButton();
         btnTT = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        txtMaKH = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -153,14 +171,14 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tên thuốc", "Đơn vị tính", "Số lượng", "Giá bán", "Thành tiền"
+                "Mã HH", "Tên thuốc", "Đơn vị tính", "Số lượng", "Giá bán", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,21 +198,21 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
         tblTimKiemThuoc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tên thuốc", "Hoạt chất", "Tồn kho", "DV", "Hạn sử dụng", "Giá bán"
+                "Mã HH", "Tên thuốc", "Hoạt chất", "Tồn kho", "DV", "Hạn sử dụng", "Giá bán"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -395,10 +413,10 @@ public class BanHangJPanel extends javax.swing.JPanel {
         txtTenKH.setEditable(false);
         txtTenKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtTenKH.setOpaque(false);
-        jPanel4.add(txtTenKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 340, 26));
+        jPanel4.add(txtTenKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 170, 26));
 
         jLabel3.setText("Tên khách hàng:");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
 
         jLabel4.setText("Giới tính:");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
@@ -513,10 +531,23 @@ public class BanHangJPanel extends javax.swing.JPanel {
                 btnTTMouseExited(evt);
             }
         });
+        btnTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTTActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnTT, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 190, 30));
 
         jLabel11.setText("Nhân viên:");
         jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtMaKH.setEditable(false);
+        txtMaKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtMaKH.setOpaque(false);
+        jPanel4.add(txtMaKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 80, 26));
+
+        jLabel12.setText("Tên khách hàng:");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSearch.png"))); // NOI18N
 
@@ -606,7 +637,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemKHFocusLost
 
     private void btnHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHDActionPerformed
-        // TODO add your handling code here:
+        inHoaDon();
     }//GEN-LAST:event_btnHDActionPerformed
 
     private void btnSaoChepHDMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaoChepHDMouseEntered
@@ -696,6 +727,10 @@ public class BanHangJPanel extends javax.swing.JPanel {
         openTimHoaDon();
     }//GEN-LAST:event_btnSaoChepHDActionPerformed
 
+    private void btnTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTTActionPerformed
+        thanhToan();
+    }//GEN-LAST:event_btnTTActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHD;
@@ -708,6 +743,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -736,6 +772,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtDiem;
     private javax.swing.JTextArea txtGhiChu;
     private javax.swing.JTextField txtKhachTT;
+    private javax.swing.JTextField txtMaKH;
     private javax.swing.JTextField txtNV;
     private javax.swing.JTextField txtNamSinh;
     private javax.swing.JTextField txtNgayTao;
@@ -772,6 +809,8 @@ public class BanHangJPanel extends javax.swing.JPanel {
     HangHoaDAO hhdao = new HangHoaDAO();
     DanhMucThuocDAO dmtdao = new DanhMucThuocDAO();
     KhachHangDAO khdao = new KhachHangDAO();
+    HoaDonDAO hddao = new HoaDonDAO();
+    HoaDonChiTietDAO hdctdao = new HoaDonChiTietDAO();
 
     void updateStatus() {
         boolean thanhToan = false;
@@ -800,6 +839,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
             List<HangHoa> listhh = hhdao.selectNotInCourse(dmt.getMaThuoc());
             for (HangHoa hh : listhh) {
                 Object data[] = {
+                    hh.getMaHH(),
                     dmt.getTenThuoc(),
                     dmt.getHoatChat(),
                     hh.getSlSauQuiDoi(),
@@ -814,20 +854,21 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
     private void themVaoGioHang() {
         DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
-        String tenThuocHH = (String) tblTimKiemThuoc.getValueAt(row, 0);
+        String maHH = (String) tblTimKiemThuoc.getValueAt(row, 0);
         if (model.getRowCount() == 0) {
             Object data[] = {
                 tblTimKiemThuoc.getValueAt(row, 0),
-                tblTimKiemThuoc.getValueAt(row, 3),
+                tblTimKiemThuoc.getValueAt(row, 1),
+                tblTimKiemThuoc.getValueAt(row, 4),
                 1.0,
-                tblTimKiemThuoc.getValueAt(row, 5),
-                tblTimKiemThuoc.getValueAt(row, 5),};
+                tblTimKiemThuoc.getValueAt(row, 6),
+                tblTimKiemThuoc.getValueAt(row, 6),};
             model.addRow(data);
         } else {
             double soLuongHH = 0;
             for (int i = 0; i < model.getRowCount(); i++) {
-                if (tblGioHang.getValueAt(i, 0).equals(tenThuocHH)) {
-                    double soLuongGH = (double) tblGioHang.getValueAt(i, 2);
+                if (tblGioHang.getValueAt(i, 0).equals(maHH)) {
+                    double soLuongGH = (double) tblGioHang.getValueAt(i, 3);
                     soLuongHH = soLuongGH + 1;
                     model.removeRow(i);
                     break;
@@ -835,12 +876,13 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     soLuongHH = 1.0;
                 }
             }
-            double giaBan = (double) tblTimKiemThuoc.getValueAt(row, 5);
+            double giaBan = (double) tblTimKiemThuoc.getValueAt(row, 6);
             Object data[] = {
                 tblTimKiemThuoc.getValueAt(row, 0),
-                tblTimKiemThuoc.getValueAt(row, 3),
+                tblTimKiemThuoc.getValueAt(row, 1),
+                tblTimKiemThuoc.getValueAt(row, 4),
                 soLuongHH,
-                tblTimKiemThuoc.getValueAt(row, 5),
+                tblTimKiemThuoc.getValueAt(row, 6),
                 soLuongHH * giaBan
             };
             model.addRow(data);
@@ -896,6 +938,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     }
 
     void setForm(KhachHang kh) {
+        txtMaKH.setText(kh.getMaKH());
         txtTenKH.setText(kh.getHoTen());
         rdoNam.setSelected(kh.isGioiTinh());
         rdoNu.setSelected(!kh.isGioiTinh());
@@ -912,7 +955,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         double tongTien = 0;
         double khachTT = Double.valueOf(txtKhachTT.getText());
         for (int i = 0; i < model.getRowCount(); i++) {
-            tongTien += Double.valueOf((double) tblGioHang.getValueAt(i, 4));
+            tongTien += Double.valueOf((double) tblGioHang.getValueAt(i, 5));
         }
         txtTongTien.setText(String.valueOf(tongTien));
         txtTienThua.setText(String.valueOf(khachTT - tongTien));
@@ -926,21 +969,21 @@ public class BanHangJPanel extends javax.swing.JPanel {
     }
 
     private void suaSoLuong() {
-        double soLuong = (double) tblGioHang.getValueAt(rowGH, 2);
+        double soLuong = (double) tblGioHang.getValueAt(rowGH, 3);
         txtSuaSoLuong.setText(String.valueOf(soLuong));
         updateStatus();
     }
 
     private void tinhThanhTien() {
-        double donGia = (double) tblGioHang.getValueAt(rowGH, 3);
-        double soLuong = (double) tblGioHang.getValueAt(rowGH, 2);
+        double donGia = (double) tblGioHang.getValueAt(rowGH, 4);
+        double soLuong = (double) tblGioHang.getValueAt(rowGH, 3);
         double thanhTien = donGia * soLuong;
-        tblGioHang.setValueAt(thanhTien, rowGH, 4);
+        tblGioHang.setValueAt(thanhTien, rowGH, 5);
     }
 
     private void fillSoLuongGH() {
         double soLuong = Double.valueOf(txtSuaSoLuong.getText());
-        tblGioHang.setValueAt(soLuong, rowGH, 2);
+        tblGioHang.setValueAt(soLuong, rowGH, 3);
         tinhThanhTien();
     }
 
@@ -973,6 +1016,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                 List<HoaDonChiTiet> list = cthddao.selectNotInCourse(maHD);
                 for (HoaDonChiTiet hdct1 : list) {
                     Object data[] = {
+                        hdct1.getMaHH(),
                         dmtdao.selectById(hhdao.selectById(hdct1.getMaHH()).getMaThuoc()).getTenThuoc(),
                         dmtdao.selectById(hhdao.selectById(hdct1.getMaHH()).getMaThuoc()).getDonViQuiDoi(),
                         hdct1.getSoLuong(),
@@ -988,11 +1032,11 @@ public class BanHangJPanel extends javax.swing.JPanel {
             setForm(khdao.selectById(maKH));
         }
     }
-     private void openThemKHMoi() {
+
+    private void openThemKHMoi() {
         QuanLyNhaThuocJFrame qlnt = new QuanLyNhaThuocJFrame();
         ThemKhachHangJDialog themKH = new ThemKhachHangJDialog(qlnt, true);
         themKH.setVisible(true);
-
         String maKH = themKH.getMaKH();
         if (maKH.equals("")) {
             fillTableKH();
@@ -1003,4 +1047,69 @@ public class BanHangJPanel extends javax.swing.JPanel {
             setForm(kh);
         }
     }
+
+    HoaDon getHD() {
+        HoaDon hd = new HoaDon();
+        hd.setMaKH(txtMaKH.getText());
+        hd.setMaNV(Auth.user.getMaNV());
+        hd.setNgayBan(XDate.toDate(txtNgayTao.getText(), "dd/MM/yyyy"));
+        hd.setTongTien(Double.valueOf(txtTongTien.getText()));
+        return hd;
+    }
+
+    private void thanhToan() {
+        HoaDon hd = this.getHD();
+        hddao.insert(hd);
+        String maHD = hddao.lastMaHD().getMaHD();
+        System.out.println(maHD);
+        for (int i = 0; i < tblGioHang.getRowCount(); i++) {
+            HoaDonChiTiet hdct = new HoaDonChiTiet();
+            hdct.setMaHD(maHD);
+            hdct.setMaHH((String) tblGioHang.getValueAt(i, 0));
+            hdct.setSoLuong((double) tblGioHang.getValueAt(i, 3));
+            hdct.setDonGia((double) tblGioHang.getValueAt(i, 4));
+            try {
+                hdctdao.insert(hdct);
+                this.clearFrom();
+                MsgBox.alert(this, "Thanh toán thành công");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Thanh toán thất bại");
+            }
+        }
+
+    }
+
+    void inHoaDon() {
+        HoaDon hd = this.getHD();
+        hddao.insert(hd);
+        String maHD = hddao.lastMaHD().getMaHD();
+        System.out.println(maHD);
+        for (int i = 0; i < tblGioHang.getRowCount(); i++) {
+            HoaDonChiTiet hdct = new HoaDonChiTiet();
+            hdct.setMaHD(maHD);
+            hdct.setMaHH((String) tblGioHang.getValueAt(i, 0));
+            hdct.setSoLuong((double) tblGioHang.getValueAt(i, 3));
+            hdct.setDonGia((double) tblGioHang.getValueAt(i, 4));
+            try {
+                hdctdao.insert(hdct);
+                this.clearFrom();
+                MsgBox.alert(this, "Thanh toán thành công");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Thanh toán thất bại");
+            }
+        }
+        try {
+            Hashtable map = new Hashtable();
+            JasperReport report = JasperCompileManager.compileReport("src/com/qlnt/files/HoaDon.jrxml");
+
+            map.put("MaHD", maHD);
+
+            JasperPrint p = JasperFillManager.fillReport(report, map, XJdbc.getConnection());
+            JasperViewer.viewReport(p, false);
+            JasperExportManager.exportReportToPdfFile(p, "test.pdf");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }

@@ -6,6 +6,7 @@
 package com.qlnt.dao;
 
 import com.qlnt.entity.HoaDon;
+import com.qlnt.util.XDate;
 import com.qlnt.util.XJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,13 +20,19 @@ import java.util.List;
 public class HoaDonDAO extends qlntDAO<HoaDon, String> {
 
     @Override
-    public void insert(HoaDon entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insert(HoaDon hd) {
+        String sql = "INSERT INTO HoaDon (MaNV, NgayBan, MaKH, TongTien) values (?,?,?,?)";
+        XJdbc.update(sql,                 
+                hd.getMaNV(),
+                XDate.toString(hd.getNgayBan(), "MM/dd/yyyy"),
+                hd.getMaKH(),
+                hd.getTongTien()
+                );
     }
 
     @Override
     public void update(HoaDon entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
@@ -78,7 +85,13 @@ public class HoaDonDAO extends qlntDAO<HoaDon, String> {
     }
 
     public List<HoaDon> selectNotInCourse(String maHD, String tenKH) {
-        String sql = "SELECT * FROM HoaDon INNER JOIN KhachHang ON HoaDon.MaKH = KhachHang.MaKH INNER JOIN NhanVien ON HoaDon.MaNV = NhanVien.MaNV WHERE HoaDon.MAHD LIKE ? AND KhachHang.TenKH LIKE ?";
+        String sql = "SELECT * FROM HoaDon INNER JOIN KhachHang ON HoaDon.MaKH = "
+                + "KhachHang.MaKH INNER JOIN NhanVien ON HoaDon.MaNV = NhanVien.MaNV WHERE HoaDon.MAHD LIKE ? AND KhachHang.TenKH LIKE ?";
         return this.selectBySql(sql, "%" + maHD + "%", "%"+tenKH+"%");
+    }
+    public HoaDon lastMaHD(){
+        String sql = "SELECT TOP 1 MaHD, HoaDon.MaNV, NgayBan, HoaDon.MaKH, TongTien, KhachHang.TenKH, NhanVien.TenNV FROM HoaDon INNER JOIN KhachHang ON HoaDon.MaKH = KhachHang.MaKH INNER JOIN NhanVien ON HoaDon.MaNV = NhanVien.MaNV ORDER BY MaHD DESC";
+        List<HoaDon> list = this.selectBySql(sql);
+        return list.size()>0 ? list.get(0) : null;
     }
 }

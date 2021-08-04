@@ -16,10 +16,12 @@ import java.sql.SQLException;
  * @author monst
  */
 public class XJdbc {
+
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String dbUrl = "jdbc:sqlserver://localhost:1433;database=QuanLyNhaThuoc";
     private static String username = "sa";
     private static String password = "123";
+    public static Connection con;
 
     static {
         try {
@@ -29,46 +31,50 @@ public class XJdbc {
         }
 
     }
-    public static PreparedStatement getStm(String sql, Object...args) throws SQLException{
-        Connection con = DriverManager.getConnection(dbUrl, username, password);
+
+    public static PreparedStatement getStm(String sql, Object... args) throws SQLException {
+        con = DriverManager.getConnection(dbUrl, username, password);
         PreparedStatement pstm = null;
-        if(sql.trim().startsWith("{")){
+        if (sql.trim().startsWith("{")) {
             pstm = con.prepareCall(sql);
-        }else{            
+        } else {
             pstm = con.prepareStatement(sql);
         }
-        for(int i = 0; i<args.length;i++){
-            pstm.setObject(i+1, args[i]);                       
-        }        
+        for (int i = 0; i < args.length; i++) {
+            pstm.setObject(i + 1, args[i]);
+        }
         return pstm;
     }
-    public static void update(String sql, Object...args){
+
+    public static void update(String sql, Object... args) {
         try {
             PreparedStatement pstm = XJdbc.getStm(sql, args);
-            try {                
+            try {
                 pstm.executeUpdate();
-            } finally{
+            } finally {
                 pstm.getConnection().close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
         }
-        
+
     }
-    public static ResultSet query(String sql, Object...args){
+
+    public static ResultSet query(String sql, Object... args) {
         try {
-            PreparedStatement pstm = XJdbc.getStm(sql, args);            
+            PreparedStatement pstm = XJdbc.getStm(sql, args);
             return pstm.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
-    public static Object value(String sql, Object...args){
+
+    public static Object value(String sql, Object... args) {
         try {
             ResultSet rs = XJdbc.query(sql, args);
-            while(rs.next()){
+            while (rs.next()) {
                 return rs.getObject(0);
             }
             rs.getStatement().getConnection().close();
@@ -77,5 +83,19 @@ public class XJdbc {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public static Connection getConnection() {
+        Connection conn = null;
+        try {
+            String dbUrl = "jdbc:sqlserver://localhost:1433;database=QuanLyNhaThuoc";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String user = "sa";
+            String password = "123";
+            conn = DriverManager.getConnection(dbUrl, user, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return conn;
     }
 }

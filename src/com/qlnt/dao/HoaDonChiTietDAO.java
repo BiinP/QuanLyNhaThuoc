@@ -25,8 +25,8 @@ public class HoaDonChiTietDAO extends qlntDAO<HoaDonChiTiet, String> {
         XJdbc.update(sql,
                 hdct.getMaHD(),
                 hdct.getMaHH(),
-                hdct.getDonGia(),
-                hdct.getSoLuong()
+                hdct.getSoLuong(),
+                hdct.getDonGia()
         );
 
     }

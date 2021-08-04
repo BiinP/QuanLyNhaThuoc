@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48c4871f-b769-4b07-8d4b-b7f0341da276">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     HoaDonChiTiet."SoLuong"*HoaDonChiTiet."DonGia" AS ThanhTien,
+     DanhMucThuoc."MATHUOC" AS DanhMucThuoc_MATHUOC,
+     DanhMucThuoc."TenThuoc" AS DanhMucThuoc_TenThuoc,
+     HangHoa."MAHH" AS HangHoa_MAHH,
+     HangHoa."MaThuoc" AS HangHoa_MaThuoc,
+     HangHoa."SoLo" AS HangHoa_SoLo,
+     HangHoa."HSD" AS HangHoa_HSD,
+     HangHoa."SLSauQuiDoi" AS HangHoa_SLSauQuiDoi,
+     HangHoa."DonViQuiDoi" AS HangHoa_DonViQuiDoi,
+     HangHoa."GiaBan" AS HangHoa_GiaBan,
+     HoaDon."MAHD" AS HoaDon_MAHD,
+     HoaDon."MaNV" AS HoaDon_MaNV,
+     HoaDon."NgayBan" AS HoaDon_NgayBan,
+     HoaDon."MaKH" AS HoaDon_MaKH,
+     HoaDon."TongTien" AS HoaDon_TongTien,
+     HoaDonChiTiet."MaHDCT" AS HoaDonChiTiet_MaHDCT,
+     HoaDonChiTiet."MaHH" AS HoaDonChiTiet_MaHH,
+     HoaDonChiTiet."SoLuong" AS HoaDonChiTiet_SoLuong,
+     HoaDonChiTiet."DonGia" AS HoaDonChiTiet_DonGia,
+     KhachHang."MAKH" AS KhachHang_MAKH,
+     KhachHang."TenKH" AS KhachHang_TenKH,
+     KhachHang."NamSinh" AS KhachHang_NamSinh,
+     KhachHang."Diem" AS KhachHang_Diem,
+     NhanVien."MaNV" AS NhanVien_MaNV,
+     NhanVien."TenNV" AS NhanVien_TenNV,
+     NhanVien."SDT" AS NhanVien_SDT,
+     NhomThuoc."MANT" AS NhomThuoc_MANT,
+     NhomThuoc."TenNT" AS NhomThuoc_TenNT,
+     KhachHang."SDT" AS KhachHang_SDT,
+     KhachHang."GioiTinh" AS KhachHang_GioiTinh,
+	HoaDonChiTiet."SoLuong" * HoaDonChiTiet."DonGia" AS ThanhTien,
+	(SELECT YEAR(GETDATE()) - KhachHang."NamSinh") AS TUOI
+FROM
+     "dbo"."DanhMucThuoc" DanhMucThuoc INNER JOIN "dbo"."HangHoa" HangHoa ON DanhMucThuoc."MATHUOC" = HangHoa."MaThuoc"
+     INNER JOIN "dbo"."HoaDonChiTiet" HoaDonChiTiet ON HangHoa."MAHH" = HoaDonChiTiet."MaHH"
+     INNER JOIN "dbo"."HoaDon" HoaDon ON HoaDonChiTiet."MaHDCT" = HoaDon."MAHD"
+     INNER JOIN "dbo"."KhachHang" KhachHang ON HoaDon."MaKH" = KhachHang."MAKH"
+     INNER JOIN "dbo"."NhanVien" NhanVien ON HoaDon."MaNV" = NhanVien."MaNV"
+     INNER JOIN "dbo"."NhomThuoc" NhomThuoc ON DanhMucThuoc."MaNT" = NhomThuoc."MANT"
+WHERE
+     HoaDon."MAHD" ='HD00001']]>
+	</queryString>
+	<field name="ThanhTien" class="java.lang.Double"/>
+	<field name="DanhMucThuoc_MATHUOC" class="java.lang.String"/>
+	<field name="DanhMucThuoc_TenThuoc" class="java.lang.String"/>
+	<field name="HangHoa_MAHH" class="java.lang.String"/>
+	<field name="HangHoa_MaThuoc" class="java.lang.String"/>
+	<field name="HangHoa_SoLo" class="java.lang.String"/>
+	<field name="HangHoa_HSD" class="java.lang.String"/>
+	<field name="HangHoa_SLSauQuiDoi" class="java.lang.Double"/>
+	<field name="HangHoa_DonViQuiDoi" class="java.lang.String"/>
+	<field name="HangHoa_GiaBan" class="java.lang.Double"/>
+	<field name="HoaDon_MAHD" class="java.lang.String"/>
+	<field name="HoaDon_MaNV" class="java.lang.String"/>
+	<field name="HoaDon_NgayBan" class="java.lang.String"/>
+	<field name="HoaDon_MaKH" class="java.lang.String"/>
+	<field name="HoaDon_TongTien" class="java.lang.Double"/>
+	<field name="HoaDonChiTiet_MaHDCT" class="java.lang.String"/>
+	<field name="HoaDonChiTiet_MaHH" class="java.lang.String"/>
+	<field name="HoaDonChiTiet_SoLuong" class="java.lang.Double"/>
+	<field name="HoaDonChiTiet_DonGia" class="java.lang.Double"/>
+	<field name="KhachHang_MAKH" class="java.lang.String"/>
+	<field name="KhachHang_TenKH" class="java.lang.String"/>
+	<field name="KhachHang_NamSinh" class="java.lang.Integer"/>
+	<field name="KhachHang_Diem" class="java.lang.Double"/>
+	<field name="NhanVien_MaNV" class="java.lang.String"/>
+	<field name="NhanVien_TenNV" class="java.lang.String"/>
+	<field name="NhanVien_SDT" class="java.lang.String"/>
+	<field name="NhomThuoc_MANT" class="java.lang.String"/>
+	<field name="NhomThuoc_TenNT" class="java.lang.String"/>
+	<field name="KhachHang_SDT" class="java.lang.String"/>
+	<field name="KhachHang_GioiTinh" class="java.lang.Boolean"/>
+	<field name="TUOI" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

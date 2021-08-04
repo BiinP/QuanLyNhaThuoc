@@ -712,7 +712,7 @@ public class ThemKhachHangJDialog extends javax.swing.JDialog {
 
     boolean kiemtra() {
         KhachHang kh = this.getForm();
-        if (kh.getMaKH().equals("") || kh.getHoTen().equals("")) {
+        if (kh.getHoTen().equals("")) {
             MsgBox.alert(this, "Vui lòng nhập đầy đủ thông tin khách hàng");
             return false;
         } else if (String.valueOf(kh.getDiem()).matches("\\d*")) {
