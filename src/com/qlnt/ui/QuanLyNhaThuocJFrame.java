@@ -1033,6 +1033,16 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         TittleBar.setMaximumSize(new java.awt.Dimension(1000, 36));
         TittleBar.setMinimumSize(new java.awt.Dimension(1000, 36));
         TittleBar.setPreferredSize(new java.awt.Dimension(1000, 36));
+        TittleBar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                TittleBarMouseDragged(evt);
+            }
+        });
+        TittleBar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TittleBarMousePressed(evt);
+            }
+        });
         TittleBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnMinus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/minus.png"))); // NOI18N
@@ -1433,6 +1443,15 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         dangXuat();
     }//GEN-LAST:event_btnSignoutActionPerformed
 
+    private void TittleBarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TittleBarMouseDragged
+        this.setLocation(this.getX() + evt.getX() - mouseX, this.getY() + evt.getY() - mouseY);
+    }//GEN-LAST:event_TittleBarMouseDragged
+
+    private void TittleBarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TittleBarMousePressed
+        mouseX = evt.getX();
+        mouseY = evt.getY();
+    }//GEN-LAST:event_TittleBarMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1505,6 +1524,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     TongQuanJPanel TabTongQuan;
     BanHangJPanel TabBanHang;
+    int mouseX, mouseY;
 
     void init() {
         initComponents();
@@ -1615,7 +1635,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
                 TabMain.addTab("", TabQLHD);
             }
             TabMain.setSelectedComponent(TabQLHD);
-        }else {
+        } else {
             MsgBox.alert(this, "Đăng nhập để sử dụng được chức năng này");
         }
     }

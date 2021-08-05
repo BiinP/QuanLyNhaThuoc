@@ -117,6 +117,11 @@ public class BanHangJPanel extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         txtMaKH = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        txtTrieuChung = new javax.swing.JTextArea();
+        jLabel20 = new javax.swing.JLabel();
+        txtCanNang = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -432,12 +437,12 @@ public class BanHangJPanel extends javax.swing.JPanel {
         jPanel4.add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, -1, -1));
 
         jLabel5.setText("Năm sinh:");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, -1, -1));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, -1, -1));
 
         txtNamSinh.setEditable(false);
         txtNamSinh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtNamSinh.setOpaque(false);
-        jPanel4.add(txtNamSinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 140, 26));
+        jPanel4.add(txtNamSinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 60, 26));
 
         jLabel6.setText("SDT:");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
@@ -500,7 +505,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         txtGhiChu.setOpaque(false);
         jScrollPane6.setViewportView(txtGhiChu);
 
-        jPanel4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 390, 60));
+        jPanel4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 170, 60));
 
         btnHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnInHD.png"))); // NOI18N
         btnHD.setBorder(null);
@@ -518,7 +523,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                 btnHDActionPerformed(evt);
             }
         });
-        jPanel4.add(btnHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 190, 30));
+        jPanel4.add(btnHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 190, 30));
 
         btnTT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnThanToan.png"))); // NOI18N
         btnTT.setBorder(null);
@@ -536,7 +541,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                 btnTTActionPerformed(evt);
             }
         });
-        jPanel4.add(btnTT, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 190, 30));
+        jPanel4.add(btnTT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 190, 30));
 
         jLabel11.setText("Nhân viên:");
         jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
@@ -546,8 +551,28 @@ public class BanHangJPanel extends javax.swing.JPanel {
         txtMaKH.setOpaque(false);
         jPanel4.add(txtMaKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 80, 26));
 
-        jLabel12.setText("Tên khách hàng:");
+        jLabel12.setText("Mã khách hàng:");
         jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        txtTrieuChung.setColumns(20);
+        txtTrieuChung.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        txtTrieuChung.setRows(5);
+        txtTrieuChung.setWrapStyleWord(true);
+        txtTrieuChung.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtTrieuChung.setOpaque(false);
+        jScrollPane7.setViewportView(txtTrieuChung);
+
+        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 150, 60));
+
+        jLabel20.setText("Triệu chứng:");
+        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 70, -1));
+
+        txtCanNang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtCanNang.setOpaque(false);
+        jPanel4.add(txtCanNang, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 60, 26));
+
+        jLabel13.setText("Cân nặng:");
+        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSearch.png"))); // NOI18N
 
@@ -744,10 +769,12 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -760,6 +787,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel pnlGioHang;
@@ -769,6 +797,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblGioHang;
     private javax.swing.JTable tblTimKiemKH;
     private javax.swing.JTable tblTimKiemThuoc;
+    private javax.swing.JTextField txtCanNang;
     private javax.swing.JTextField txtDiem;
     private javax.swing.JTextArea txtGhiChu;
     private javax.swing.JTextField txtKhachTT;
@@ -783,6 +812,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtTimKiemKH;
     private javax.swing.JTextField txtTimKiemThuoc;
     private javax.swing.JTextField txtTongTien;
+    private javax.swing.JTextArea txtTrieuChung;
     // End of variables declaration//GEN-END:variables
    void init() {
         initComponents();
@@ -931,6 +961,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         txtKhachTT.setText("0.0");
         txtTienThua.setText("0.0");
         txtGhiChu.setText("");
+        txtTrieuChung.setText("");
 
         KhachHang kh = new KhachHang();
         kh.setGioiTinh(true);
@@ -1082,8 +1113,8 @@ public class BanHangJPanel extends javax.swing.JPanel {
     void inHoaDon() {
         HoaDon hd = this.getHD();
         hddao.insert(hd);
+        String GioiTinh = rdoNam.isSelected()? "Nam":"Nữ";
         String maHD = hddao.lastMaHD().getMaHD();
-        System.out.println(maHD);
         for (int i = 0; i < tblGioHang.getRowCount(); i++) {
             HoaDonChiTiet hdct = new HoaDonChiTiet();
             hdct.setMaHD(maHD);
@@ -1092,7 +1123,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
             hdct.setDonGia((double) tblGioHang.getValueAt(i, 4));
             try {
                 hdctdao.insert(hdct);
-                this.clearFrom();
+                
                 MsgBox.alert(this, "Thanh toán thành công");
             } catch (Exception e) {
                 MsgBox.alert(this, "Thanh toán thất bại");
@@ -1100,10 +1131,14 @@ public class BanHangJPanel extends javax.swing.JPanel {
         }
         try {
             Hashtable map = new Hashtable();
-            JasperReport report = JasperCompileManager.compileReport("src/com/qlnt/files/HoaDon.jrxml");
-
-            map.put("MaHD", maHD);
-
+            JasperReport report = JasperCompileManager.compileReport("src/com/qlnt/report/HoaDon.jrxml");
+            map.put("MaHD", maHD);            
+            map.put("ThanhToan", txtKhachTT.getText());
+            map.put("GioiTinh", GioiTinh);
+            map.put("CanNang", txtCanNang.getText());
+            map.put("GhiChu",txtGhiChu.getText());
+            map.put("TrieuChung", txtTrieuChung.getText());
+            this.clearFrom();
             JasperPrint p = JasperFillManager.fillReport(report, map, XJdbc.getConnection());
             JasperViewer.viewReport(p, false);
             JasperExportManager.exportReportToPdfFile(p, "test.pdf");
