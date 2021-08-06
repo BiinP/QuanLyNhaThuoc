@@ -1141,6 +1141,7 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
         txtTenHH.setText(lstTenHH.getSelectedValue());
         popupTenHH.setVisible(false);
         String tenThuoc = txtTenHH.getText();
+        System.out.println(lstTenHH.getSelectedValue());
         List<DanhMucThuoc> list = dmtdao.selectNotInCourse(tenThuoc);
         for (DanhMucThuoc dmt : list) {
             txtDVGoc.setText(dmt.getDonViGoc());
