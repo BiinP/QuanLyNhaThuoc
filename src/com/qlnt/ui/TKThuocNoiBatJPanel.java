@@ -6,8 +6,13 @@
 
 package com.qlnt.ui;
 
+import com.qlnt.dao.HoaDonDAO;
+import com.qlnt.dao.ThongKeDAO;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -49,7 +54,12 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê thuốc nổi bật", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        cboThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" }));
+        cboThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        cboThang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboThangActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Tháng");
@@ -82,20 +92,20 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         tblThuocNoiBat.setAutoCreateRowSorter(true);
         tblThuocNoiBat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "STT", "Tên thuốc", "Đã bán", "Đơn vị qui đổi"
+                "Tên thuốc", "Đã bán"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -123,7 +133,7 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 512, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,9 +150,9 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
                         .addGap(38, 38, 38)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
@@ -216,6 +226,10 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void cboThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangActionPerformed
+        fillTableThuoc();
+    }//GEN-LAST:event_cboThangActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTimKiem;
@@ -233,9 +247,34 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
     void init(){
         txtTimKiem.setText("Nhập tên hàng hóa cần tìm");
         tblThuocNoiBat.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
-        tblThuocNoiBat.getTableHeader().setOpaque(false);
-        tblThuocNoiBat.getTableHeader().setBackground(new Color(24,116,168));
-        tblThuocNoiBat.getTableHeader().setForeground(Color.WHITE);
-        tblThuocNoiBat.setRowHeight(30);
+        tblThuocNoiBat.getTableHeader().setForeground(Color.BLACK);
+        fillComboBoxThang();
+        fillTableThuoc();
+    }
+    HoaDonDAO hddao = new HoaDonDAO();
+    ThongKeDAO tkdao = new ThongKeDAO();
+    void fillComboBoxThang(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboThang.getModel();        
+        List<String> listThang = hddao.selectMonth();
+        for(String month : listThang){
+           model.addElement(month);
+        } 
+    }
+    void fillTableThuoc(){
+        DefaultTableModel model = (DefaultTableModel) tblThuocNoiBat.getModel();
+        model.setRowCount(0);
+        String thang = (String) cboThang.getSelectedItem();
+        if(thang.equals("Tất cả")){
+            List<Object[]> list = tkdao.getThuocNoiBat();
+            for(Object[] row : list){
+                model.addRow(row);
+            }
+        }else{
+            List<Object[]> list = tkdao.getThuocNoiBat_Thang(thang);
+            for(Object[] row : list){
+                model.addRow(row);
+            }
+        }
+        
     }
 }

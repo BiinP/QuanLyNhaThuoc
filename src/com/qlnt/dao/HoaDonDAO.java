@@ -94,4 +94,19 @@ public class HoaDonDAO extends qlntDAO<HoaDon, String> {
         List<HoaDon> list = this.selectBySql(sql);
         return list.size()>0 ? list.get(0) : null;
     }
+    public List<String> selectMonth() {
+        String sql="SELECT DISTINCT month(NgayBan) Month FROM HoaDon ORDER BY Month DESC";
+        List<String> list=new ArrayList<>();
+        try {
+           ResultSet rs = XJdbc.query(sql);
+           while(rs.next()){
+                 list.add(rs.getString(1));
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } 
+        catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }

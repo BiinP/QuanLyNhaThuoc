@@ -7,6 +7,7 @@ package com.qlnt.ui;
 
 import com.qlnt.util.Auth;
 import com.qlnt.util.MsgBox;
+import com.qlnt.util.XImage;
 import java.awt.Color;
 import java.awt.Cursor;
 import static java.awt.Frame.HAND_CURSOR;
@@ -1530,6 +1531,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         pnlSubmenu.setVisible(false);
+        setIconImage(XImage.getAppIcon());
         startDongHo();
         Auth.loginSuccess(lblUser, lblRole);
     }

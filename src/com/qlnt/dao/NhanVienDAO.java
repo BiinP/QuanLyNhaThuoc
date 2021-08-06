@@ -20,7 +20,7 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
 
     @Override
     public void insert(NhanVien nhanvien) {
-        String sql = "INSERT into NhanVien (MaNV, TenNV, MatKhau, GioiTinh, VaiTro, Email, SDT) values(?,?,?,?,?,?,?)";
+        String sql = "INSERT into NhanVien (MaNV, TenNV, MatKhau, GioiTinh, VaiTro, Email, SDT, hinh) values(?,?,?,?,?,?,?,?)";
         XJdbc.update(sql,
                 nhanvien.getMaNV(),
                 nhanvien.getHoTen(),
@@ -28,13 +28,14 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
                 nhanvien.isGioiTinh(),
                 nhanvien.isVaiTro(),
                 nhanvien.getEmail(),
-                nhanvien.getSDT()
+                nhanvien.getSDT(),
+                nhanvien.getHinh()
         );
     }
 
     @Override
     public void update(NhanVien nhanvien) {
-        String sql = "UPDATE NhanVien SET TenNV=?, MatKhau=?,GioiTinh=?, VaiTro=?, Email=?, SDT=? WHERE MaNV=?";
+        String sql = "UPDATE NhanVien SET TenNV=?, MatKhau=?,GioiTinh=?, VaiTro=?, Email=?, SDT=?, Hinh=? WHERE MaNV=?";
         XJdbc.update(sql,
                 nhanvien.getHoTen(),
                 nhanvien.getMatKhau(),
@@ -42,6 +43,7 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
                 nhanvien.isVaiTro(),
                 nhanvien.getEmail(),
                 nhanvien.getSDT(),
+                nhanvien.getHinh(),
                 nhanvien.getMaNV()
         );
     }
@@ -81,6 +83,7 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
                     nv.setSDT(rs.getString("SDT"));
                     nv.setEmail(rs.getString("Email"));
                     nv.setGioiTinh(rs.getBoolean("GioiTinh"));
+                    nv.setHinh(rs.getString("Hinh"));
                     list.add(nv);
                 }
             } finally {

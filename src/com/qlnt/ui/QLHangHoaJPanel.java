@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import static java.awt.Frame.HAND_CURSOR;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -895,6 +896,7 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
         popup.add(pnlTim);
         popupTenHH.add(pnlTenHH);
         fillTable();
+        btnThem.setMnemonic(KeyEvent.VK_ENTER);
         this.updateStatus();
     }
     int row = -1;

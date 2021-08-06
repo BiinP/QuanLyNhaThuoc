@@ -20,9 +20,8 @@ public class NhomThuocDAO extends qlntDAO<NhomThuoc, String>{
 
     @Override
     public void insert(NhomThuoc nhomthuoc) {
-        String sql = "INSERT into NhomThuoc (MaNT, TenNT, MoTa) values(?,?,?)";
-        XJdbc.update(sql,
-                nhomthuoc.getMaNT(),
+        String sql = "INSERT into NhomThuoc (TenNT, MoTa) values(?,?)";
+        XJdbc.update(sql,                
                 nhomthuoc.getTenNT(),                
                 nhomthuoc.getMoTa()
         );

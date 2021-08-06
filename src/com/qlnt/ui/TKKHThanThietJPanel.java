@@ -6,8 +6,13 @@
 
 package com.qlnt.ui;
 
+import com.qlnt.dao.HoaDonDAO;
+import com.qlnt.dao.ThongKeDAO;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -52,7 +57,12 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         jPanel2.setToolTipText("");
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cboThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" }));
+        cboThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        cboThang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboThangActionPerformed(evt);
+            }
+        });
         jPanel2.add(cboThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 58, 151, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -91,20 +101,20 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         tblKhachHang.setAutoCreateRowSorter(true);
         tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "STT", "Tên khách hàng", "SDT", "Điểm thân thiết", "Đơn vị qui đổi"
+                "Mã khách hàng", "Tên khách hàng", "SDT", "Điểm thân thiết"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,6 +190,10 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void cboThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangActionPerformed
+        fillTableKH();
+    }//GEN-LAST:event_cboThangActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTimKiem;
@@ -187,10 +201,7 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboThang;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -201,9 +212,34 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
     void init(){
         txtTimKiem.setText("Nhập tên khách hàng cần tìm");
         tblKhachHang.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
-        tblKhachHang.getTableHeader().setOpaque(false);
-        tblKhachHang.getTableHeader().setBackground(new Color(24,116,168));
-        tblKhachHang.getTableHeader().setForeground(Color.WHITE);
-        tblKhachHang.setRowHeight(30);
+        tblKhachHang.getTableHeader().setForeground(Color.BLACK);
+        fillComboBoxThang();
+        fillTableKH();
+    }
+    HoaDonDAO hddao = new HoaDonDAO();
+    ThongKeDAO tkdao = new ThongKeDAO();
+    void fillComboBoxThang(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboThang.getModel();        
+        List<String> listThang = hddao.selectMonth();
+        for(String month : listThang){
+           model.addElement(month);
+        } 
+    }
+    void fillTableKH(){
+        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
+        model.setRowCount(0);
+        String thang = (String) cboThang.getSelectedItem();
+        if(thang.equals("Tất cả")){
+            List<Object[]> list = tkdao.getKhachHangTT();
+            for(Object[] row : list){
+                model.addRow(row);
+            }
+        }else{
+            List<Object[]> list = tkdao.getKhachHangTT_Thang(thang);
+            for(Object[] row : list){
+                model.addRow(row);
+            }
+        }
+        
     }
 }

@@ -10,13 +10,13 @@ package com.qlnt.entity;
  * @author monst
  */
 public class NhanVien {
-    String maNV, hoTen, SDT, email, matKhau;
+    String maNV, hoTen, SDT, email, matKhau, hinh;
     boolean gioiTinh, vaiTro;
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String hoTen, String SDT, String email, String matKhau, boolean gioiTinh, boolean vaiTro) {
+    public NhanVien(String maNV, String hoTen, String SDT, String email, String matKhau, boolean gioiTinh, boolean vaiTro, String hinh) {
         this.maNV = maNV;
         this.hoTen = hoTen;
         this.SDT = SDT;
@@ -24,6 +24,15 @@ public class NhanVien {
         this.matKhau = matKhau;
         this.gioiTinh = gioiTinh;
         this.vaiTro = vaiTro;
+        this.hinh = hinh;
+    }
+
+    public String getHinh() {
+        return hinh;
+    }
+
+    public void setHinh(String hinh) {
+        this.hinh = hinh;
     }
 
     public String getMaNV() {
