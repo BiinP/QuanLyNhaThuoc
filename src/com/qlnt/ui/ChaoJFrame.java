@@ -5,6 +5,7 @@
  */
 package com.qlnt.ui;
 
+import com.qlnt.util.XImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -132,6 +133,7 @@ public class ChaoJFrame extends javax.swing.JFrame implements Runnable {
 
     void init() {
         setLocationRelativeTo(null);
+        setIconImage(XImage.getAppIcon());;
     }
     int dem = 0;
 

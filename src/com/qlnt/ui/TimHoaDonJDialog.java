@@ -478,10 +478,10 @@ public class TimHoaDonJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-        if (evt.getClickCount() == 2) {
+        
             this.row = tblHoaDon.getSelectedRow();
             this.edit();
-        }
+        
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void lstMaHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstMaHDMouseClicked

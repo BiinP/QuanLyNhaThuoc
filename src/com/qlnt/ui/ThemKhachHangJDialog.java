@@ -530,10 +530,10 @@ public class ThemKhachHangJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCuoiActionPerformed
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
-        if (evt.getClickCount() == 2) {
+       
             this.row = tblKhachHang.getSelectedRow();
             this.edit();
-        }
+        
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
     private void txtTimkiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimkiemFocusGained
@@ -629,6 +629,7 @@ public class ThemKhachHangJDialog extends javax.swing.JDialog {
         fillTable();
         this.updateStatus();
         rdoNam.setSelected(true);
+        txtDiem.setText("0");
     }
     int row = -1;
     KhachHangDAO dao = new KhachHangDAO();
@@ -715,9 +716,7 @@ public class ThemKhachHangJDialog extends javax.swing.JDialog {
         if (kh.getHoTen().equals("")) {
             MsgBox.alert(this, "Vui lòng nhập đầy đủ thông tin khách hàng");
             return false;
-        } else if (String.valueOf(kh.getDiem()).matches("\\d*")) {
-            MsgBox.alert(this, "Sai điểm thân thiết");
-        } else if (kh.getSdt().matches("0[0-9\\s.-]{9,10}")) {
+        }else if (!kh.getSdt().matches("0[0-9\\s.-]{9,10}")&& !kh.getSdt().equals("")) {
             MsgBox.alert(this, "Sai số điện thoại");
             return false;
         }

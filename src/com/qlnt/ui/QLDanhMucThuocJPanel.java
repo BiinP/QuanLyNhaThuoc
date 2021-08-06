@@ -627,10 +627,10 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNhomThuocKeyReleased
 
     private void tblDanhMucThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhMucThuocMouseClicked
-        if (evt.getClickCount() == 2) {
+
             this.row = tblDanhMucThuoc.getSelectedRow();
             this.edit();
-        }
+        
     }//GEN-LAST:event_tblDanhMucThuocMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed

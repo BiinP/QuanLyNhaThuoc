@@ -25,6 +25,7 @@ import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -248,6 +249,11 @@ public class BanHangJPanel extends javax.swing.JPanel {
         txtSuaSoLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSuaSoLuongActionPerformed(evt);
+            }
+        });
+        txtSuaSoLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSuaSoLuongKeyReleased(evt);
             }
         });
 
@@ -756,6 +762,11 @@ public class BanHangJPanel extends javax.swing.JPanel {
         thanhToan();
     }//GEN-LAST:event_btnTTActionPerformed
 
+    private void txtSuaSoLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSuaSoLuongKeyReleased
+        fillSoLuongGH();
+        tinhTongTien();
+    }//GEN-LAST:event_txtSuaSoLuongKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHD;
@@ -1090,19 +1101,22 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
     private void thanhToan() {
         HoaDon hd = this.getHD();
-        hddao.insert(hd);
+        try {
+            hddao.insert(hd);
+            MsgBox.alert(this, "Thanh toán thành công");
+        } catch (Exception e) {
+        }
         String maHD = hddao.lastMaHD().getMaHD();
-        System.out.println(maHD);
-        for (int i = 0; i < tblGioHang.getRowCount(); i++) {
+        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
             HoaDonChiTiet hdct = new HoaDonChiTiet();
             hdct.setMaHD(maHD);
             hdct.setMaHH((String) tblGioHang.getValueAt(i, 0));
             hdct.setSoLuong((double) tblGioHang.getValueAt(i, 3));
             hdct.setDonGia((double) tblGioHang.getValueAt(i, 4));
+
             try {
                 hdctdao.insert(hdct);
-                this.clearFrom();
-                MsgBox.alert(this, "Thanh toán thành công");
             } catch (Exception e) {
                 MsgBox.alert(this, "Thanh toán thất bại");
             }
@@ -1112,8 +1126,12 @@ public class BanHangJPanel extends javax.swing.JPanel {
 
     void inHoaDon() {
         HoaDon hd = this.getHD();
-        hddao.insert(hd);
-        String GioiTinh = rdoNam.isSelected()? "Nam":"Nữ";
+        try {
+            hddao.insert(hd);
+            MsgBox.alert(this, "Thanh toán thành công");
+        } catch (Exception e) {
+        }
+        String GioiTinh = rdoNam.isSelected() ? "Nam" : "Nữ";
         String maHD = hddao.lastMaHD().getMaHD();
         for (int i = 0; i < tblGioHang.getRowCount(); i++) {
             HoaDonChiTiet hdct = new HoaDonChiTiet();
@@ -1123,8 +1141,6 @@ public class BanHangJPanel extends javax.swing.JPanel {
             hdct.setDonGia((double) tblGioHang.getValueAt(i, 4));
             try {
                 hdctdao.insert(hdct);
-                
-                MsgBox.alert(this, "Thanh toán thành công");
             } catch (Exception e) {
                 MsgBox.alert(this, "Thanh toán thất bại");
             }
@@ -1132,11 +1148,11 @@ public class BanHangJPanel extends javax.swing.JPanel {
         try {
             Hashtable map = new Hashtable();
             JasperReport report = JasperCompileManager.compileReport("src/com/qlnt/report/HoaDon.jrxml");
-            map.put("MaHD", maHD);            
+            map.put("MaHD", maHD);
             map.put("ThanhToan", txtKhachTT.getText());
             map.put("GioiTinh", GioiTinh);
             map.put("CanNang", txtCanNang.getText());
-            map.put("GhiChu",txtGhiChu.getText());
+            map.put("GhiChu", txtGhiChu.getText());
             map.put("TrieuChung", txtTrieuChung.getText());
             this.clearFrom();
             JasperPrint p = JasperFillManager.fillReport(report, map, XJdbc.getConnection());

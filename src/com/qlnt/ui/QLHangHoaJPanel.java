@@ -766,10 +766,10 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNhapActionPerformed
 
     private void tblHangHoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHangHoaMouseClicked
-        if (evt.getClickCount() == 2) {
+
             this.row = tblHangHoa.getSelectedRow();
             this.edit();
-        }
+        
     }//GEN-LAST:event_tblHangHoaMouseClicked
 
     private void btnDauMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDauMouseEntered
@@ -893,6 +893,8 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
         tblHangHoa.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
         txtTim.setText("Nhập tên hàng hóa cần tìm");
         txtMaHH.setText("Mã tự động");
+        txtNgayTao.setText(XDate.toString(new Date(), "dd/MM/yyyy"));
+        txtHSD.setText(XDate.toString(XDate.addDays(new Date(), 30), "dd/MM/yyyy"));
         popup.add(pnlTim);
         popupTenHH.add(pnlTenHH);
         fillTable();

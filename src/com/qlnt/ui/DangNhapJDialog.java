@@ -9,6 +9,7 @@ import com.qlnt.dao.NhanVienDAO;
 import com.qlnt.entity.NhanVien;
 import com.qlnt.util.Auth;
 import com.qlnt.util.MsgBox;
+import com.qlnt.util.XImage;
 import java.awt.Cursor;
 import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
@@ -364,6 +365,7 @@ public class DangNhapJDialog extends javax.swing.JDialog {
         setLocationRelativeTo(this);
         txtUsername.setText("Nhập mã nhân viên");
         txtPassword.setText("Nhập mật khẩu");
+        XImage.getAppIcon();
     }
 
     void close() {

@@ -20,9 +20,8 @@ public class KhachHangDAO extends qlntDAO<KhachHang, String> {
 
     @Override
     public void insert(KhachHang khachhang) {
-        String sql = "INSERT into KhachHang (MaKH, TenKH, GioiTinh, SDT, NamSinh, Diem) values(?,?,?,?,?,?)";
-        XJdbc.update(sql,
-                khachhang.getMaKH(),
+        String sql = "INSERT into KhachHang (TenKH, GioiTinh, SDT, NamSinh, Diem) values(?,?,?,?,?)";
+        XJdbc.update(sql,                
                 khachhang.getHoTen(),
                 khachhang.isGioiTinh(),
                 khachhang.getSdt(),

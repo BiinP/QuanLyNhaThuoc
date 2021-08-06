@@ -554,10 +554,10 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtKHTimKiemKeyReleased
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-        if (evt.getClickCount() == 2) {
+
             this.row = tblHoaDon.getSelectedRow();
             this.edit();
-        }
+        
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered

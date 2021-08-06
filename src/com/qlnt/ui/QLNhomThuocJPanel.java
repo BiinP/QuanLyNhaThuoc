@@ -297,7 +297,7 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblNhomThuoc);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 570, 290));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 570, 440));
 
         lblTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSearch.png"))); // NOI18N
         lblTim.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -358,10 +358,10 @@ public class QLNhomThuocJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tblNhomThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhomThuocMouseClicked
-        if(evt.getClickCount()==2){
+
             this.row = tblNhomThuoc.getSelectedRow();
             this.edit();
-        }
+        
     }//GEN-LAST:event_tblNhomThuocMouseClicked
 
     private void txtTimkiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimkiemKeyReleased

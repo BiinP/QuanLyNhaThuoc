@@ -532,7 +532,7 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblNhanVien);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 561, 290));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 561, 470));
 
         lblTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSearch.png"))); // NOI18N
         lblTim.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -593,10 +593,10 @@ public class QLNhanVienJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimkiemFocusLost
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
-        if (evt.getClickCount() == 2) {
+
             this.row = tblNhanVien.getSelectedRow();
             this.edit();
-        }
+        
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed

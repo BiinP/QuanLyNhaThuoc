@@ -417,7 +417,7 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblKhachHang);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 561, 500));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 561, 470));
 
         lblTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSearch.png"))); // NOI18N
         lblTim.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -498,10 +498,10 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimkiemKeyReleased
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
-        if (evt.getClickCount() == 2) {
+
             this.row = tblKhachHang.getSelectedRow();
             this.edit();
-        }
+        
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
     private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
@@ -573,6 +573,7 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
         fillTable();
         this.updateStatus();
         rdoNam.setSelected(true);
+        txtDiem.setText("0");
     }
     int row = -1;
     KhachHangDAO dao = new KhachHangDAO();
@@ -659,9 +660,7 @@ public class QLKhachHangJPanel extends javax.swing.JPanel {
         if (kh.getHoTen().equals("")) {
             MsgBox.alert(this, "Vui lòng nhập đầy đủ thông tin khách hàng");
             return false;
-        }else if(String.valueOf(kh.getDiem()).matches("\\d*")){
-            MsgBox.alert(this, "Sai điểm thân thiết");
-        }else if(kh.getSdt().matches("0[0-9\\s.-]{9,10}")){
+        }else if(!kh.getSdt().matches("0[0-9\\s.-]{9,10}") && !kh.getSdt().equals("")){
             MsgBox.alert(this, "Sai số điện thoại");
             return false;
         }
