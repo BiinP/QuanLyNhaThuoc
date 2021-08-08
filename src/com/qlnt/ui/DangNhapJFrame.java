@@ -133,6 +133,11 @@ public class DangNhapJFrame extends javax.swing.JFrame {
                 txtPasswordFocusLost(evt);
             }
         });
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 220, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 260, 20));
 
@@ -345,6 +350,10 @@ public class DangNhapJFrame extends javax.swing.JFrame {
             txtPassword.setText("Nhập mật khẩu");
         }
     }//GEN-LAST:event_txtPasswordFocusLost
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        dangnhap();
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**
      * @param args the command line arguments

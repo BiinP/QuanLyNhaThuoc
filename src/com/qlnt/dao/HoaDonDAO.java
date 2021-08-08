@@ -31,10 +31,16 @@ public class HoaDonDAO extends qlntDAO<HoaDon, String> {
     }
 
     @Override
-    public void update(HoaDon entity) {
+    public void update(HoaDon hd) {
         
     }
-
+    public void updateHD(String tongTien, String maHD){
+        String sql = "UPDATE HoaDon SET TongTien=? WHERE MaHD=?";
+        XJdbc.update(sql,
+                tongTien,
+                maHD
+                );
+    }
     @Override
     public void delete(String id) {
         String sql = "DELETE FROM HoaDon WHERE MaHD=?";

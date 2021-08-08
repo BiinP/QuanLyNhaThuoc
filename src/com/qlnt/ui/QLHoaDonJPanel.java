@@ -22,8 +22,10 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import static java.awt.Frame.HAND_CURSOR;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -75,8 +77,11 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblChiTietHD = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtSoLuong = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         lblTongTien = new javax.swing.JLabel();
+        btnSua = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblTim = new javax.swing.JLabel();
         txtHDTimKiem = new javax.swing.JTextField();
@@ -220,20 +225,20 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         tblChiTietHD.setAutoCreateRowSorter(true);
         tblChiTietHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Tên HH", "Số lô", "Số lượng", "Đơn giá", "Thành tiền"
+                "Mã HH", "Tên HH", "Số lô", "Số lượng", "Đơn giá", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                true, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -252,7 +257,29 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         tblChiTietHD.setShowHorizontalLines(false);
         tblChiTietHD.setShowVerticalLines(false);
         tblChiTietHD.getTableHeader().setReorderingAllowed(false);
+        tblChiTietHD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblChiTietHDMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblChiTietHD);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Số lượng trả:");
+
+        txtSoLuong.setEditable(false);
+        txtSoLuong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSoLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSoLuongActionPerformed(evt);
+            }
+        });
+        txtSoLuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSoLuongKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -262,10 +289,22 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSoLuong))
+                .addContainerGap())
         );
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -273,6 +312,21 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
 
         lblTongTien.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTongTien.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnSua.setBackground(new java.awt.Color(59, 151, 203));
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSua.png"))); // NOI18N
+        btnSua.setBorder(null);
+        btnSua.setContentAreaFilled(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+        });
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -299,15 +353,17 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 2, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(btnXoa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnXoa)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,12 +390,13 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 610));
@@ -555,9 +612,9 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
 
-            this.row = tblHoaDon.getSelectedRow();
-            this.edit();
-        
+        this.row = tblHoaDon.getSelectedRow();
+        this.edit();
+
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
@@ -596,16 +653,42 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         last();
     }//GEN-LAST:event_btnCuoiActionPerformed
 
+    private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
+        fillSoLuongGH();
+        tinhTongTien();
+    }//GEN-LAST:event_txtSoLuongActionPerformed
+
+    private void txtSoLuongKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSoLuongKeyReleased
+
+    }//GEN-LAST:event_txtSoLuongKeyReleased
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+        btnSua.setCursor(new Cursor(HAND_CURSOR));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        update();
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void tblChiTietHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChiTietHDMouseClicked
+        this.rowHDCT = tblChiTietHD.getSelectedRow();
+        txtSoLuong.requestFocus();        
+        txtSoLuong.setEditable(true);
+        suaSoLuong();
+    }//GEN-LAST:event_tblChiTietHDMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCuoi;
     private javax.swing.JButton btnDau;
     private javax.swing.JButton btnKe;
     private javax.swing.JButton btnLui;
+    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup grGioiTinh;
     private javax.swing.ButtonGroup grVaiTro;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel4;
@@ -636,6 +719,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtMaKH;
     private javax.swing.JTextField txtMaNV;
     private javax.swing.JTextField txtNgayBan;
+    private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenKH;
     // End of variables declaration//GEN-END:variables
    void init() {
@@ -647,6 +731,8 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         fillTable();
         this.updateStatus();
     }
+    Locale localeVN = new Locale("vi", "VN");
+    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
     int row = -1;
     HoaDonDAO dao = new HoaDonDAO();
     HoaDonChiTietDAO cthddao = new HoaDonChiTietDAO();
@@ -706,7 +792,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         txtMaNV.setText(hd.getMaNV());
         txtNgayBan.setText(XDate.toString(hd.getNgayBan(), "dd/MM/yyyy"));
         txtTenKH.setText(hd.getTenKH());
-        lblTongTien.setText(String.valueOf(hd.getTongTien()));
+        lblTongTien.setText(currencyVN.format(hd.getTongTien()));
     }
 
     void edit() {
@@ -721,13 +807,16 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         try {
             List<HoaDonChiTiet> list = cthddao.selectNotInCourse(maHD);
             for (HoaDonChiTiet hdct1 : list) {
+                double soLuong = hdct1.getSoLuong();
+                double donGia = hhdao.selectById(hdct1.getMaHH()).getGiaBan();
+                double thanhTien = soLuong * donGia;
                 Object data[] = {
+                    hhdao.selectById(hdct1.getMaHH()).getMaHH(),
                     dmtdao.selectById(hhdao.selectById(hdct1.getMaHH()).getMaThuoc()).getTenThuoc(),
-                    //                    hhdao.selectById(hdct1.getMaHH()).getTenThuoc(),
                     hhdao.selectById(hdct1.getMaHH()).getSoLo(),
-                    hdct1.getSoLuong(),
-                    hhdao.selectById(hdct1.getMaHH()).getGiaBan(),
-                    dao.selectById(hdct1.getMaHD()).getTongTien()
+                    soLuong,
+                    donGia,
+                    thanhTien
                 };
                 model.addRow(data);
             }
@@ -743,6 +832,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         boolean first = (this.row == 0);
         boolean last = (this.row == (tblHoaDon.getRowCount() - 1));
 
+        btnSua.setEnabled(edit);
         btnXoa.setEnabled(edit);
 
         btnDau.setEnabled(edit && !first);
@@ -799,8 +889,57 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     void clearForm() {
         HoaDon hd = new HoaDon();
         hd.setNgayBan(new Date());
+        DefaultTableModel model = (DefaultTableModel) tblChiTietHD.getModel();
+        model.setRowCount(0);
         this.setForm(hd);
         this.row = -1;
         this.updateStatus();
+    }
+    int rowHDCT = -1;
+
+    private void suaSoLuong() {        
+        double soLuong = (double) tblChiTietHD.getValueAt(rowHDCT, 3);
+        txtSoLuong.setText(String.valueOf(soLuong));
+        updateStatus();
+    }
+
+    private void fillSoLuongGH() {
+        double soLuongBanDau = (double) tblChiTietHD.getValueAt(rowHDCT, 3);
+        double soLuongTra = Double.valueOf(txtSoLuong.getText());
+        tblChiTietHD.setValueAt(soLuongBanDau - soLuongTra, rowHDCT, 3);
+        tinhThanhTien();
+    }
+
+    private void tinhThanhTien() {
+        double donGia = (double) tblChiTietHD.getValueAt(rowHDCT, 4);
+        double soLuong = (double) tblChiTietHD.getValueAt(rowHDCT, 3);
+        double thanhTien = donGia * soLuong;
+        tblChiTietHD.setValueAt(thanhTien, rowHDCT, 5);
+    }
+
+    private void update() {
+        String maHD = txtMaHD.getText();
+        String TongTien = lblTongTien.getText().replace(".", "").replace("đ", "");
+        DefaultTableModel model = (DefaultTableModel) tblChiTietHD.getModel();
+        try {
+            dao.updateHD(TongTien, maHD);
+            MsgBox.alert(this, "Cập nhật thành công");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Cập nhật thất bại");
+        }
+        for (int i = 0; i < model.getRowCount(); i++) {
+            double soLuong = (double) tblChiTietHD.getValueAt(rowHDCT, 3);
+            String maHH = (String) tblChiTietHD.getValueAt(rowHDCT, 0);
+            cthddao.updateHDCT(soLuong, maHD, maHH);
+        }
+    }
+
+    void tinhTongTien() {
+        DefaultTableModel model = (DefaultTableModel) tblChiTietHD.getModel();
+        double tongTien = 0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            tongTien += Double.valueOf((double) tblChiTietHD.getValueAt(i, 5));
+        }
+        lblTongTien.setText(currencyVN.format(tongTien));
     }
 }

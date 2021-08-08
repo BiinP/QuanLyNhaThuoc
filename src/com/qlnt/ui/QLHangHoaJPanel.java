@@ -758,7 +758,7 @@ public class QLHangHoaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKeyReleased
 
     private void btnNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapMouseEntered
-        // TODO add your handling code here:
+        btnNhap.setCursor(new Cursor(HAND_CURSOR));
     }//GEN-LAST:event_btnNhapMouseEntered
 
     private void btnNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapActionPerformed

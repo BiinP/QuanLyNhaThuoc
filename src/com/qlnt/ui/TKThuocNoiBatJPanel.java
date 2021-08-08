@@ -6,13 +6,25 @@
 
 package com.qlnt.ui;
 
+import com.qlnt.dao.DanhMucThuocDAO;
 import com.qlnt.dao.HoaDonDAO;
 import com.qlnt.dao.ThongKeDAO;
+import com.qlnt.entity.DanhMucThuoc;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -35,6 +47,10 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlTim = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstTim = new javax.swing.JList<>();
+        popup = new javax.swing.JPopupMenu();
         jPanel2 = new javax.swing.JPanel();
         cboThang = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -45,7 +61,27 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblThuocNoiBat = new javax.swing.JTable();
         btnTimKiem = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        pnlBieuDo = new javax.swing.JPanel();
+
+        lstTim.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstTimMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(lstTim);
+
+        javax.swing.GroupLayout pnlTimLayout = new javax.swing.GroupLayout(pnlTim);
+        pnlTim.setLayout(pnlTimLayout);
+        pnlTimLayout.setHorizontalGroup(
+            pnlTimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+        );
+        pnlTimLayout.setVerticalGroup(
+            pnlTimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        popup.setFocusable(false);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1000, 570));
@@ -53,6 +89,7 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê thuốc nổi bật", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cboThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
         cboThang.addActionListener(new java.awt.event.ActionListener() {
@@ -60,12 +97,15 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
                 cboThangActionPerformed(evt);
             }
         });
+        jPanel2.add(cboThang, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 58, 151, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Tháng");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 30, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Từ khóa tìm kiếm:");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 30, -1, -1));
 
         txtTimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTimKiem.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -83,11 +123,19 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
                 txtTimKiemActionPerformed(evt);
             }
         });
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
+        jPanel2.add(txtTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 58, 203, 26));
 
         lblTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnSearch.png"))); // NOI18N
         lblTim.setMaximumSize(new java.awt.Dimension(30, 30));
         lblTim.setMinimumSize(new java.awt.Dimension(30, 30));
         lblTim.setPreferredSize(new java.awt.Dimension(30, 30));
+        jPanel2.add(lblTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 58, 27, -1));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 99, 924, 10));
 
         tblThuocNoiBat.setAutoCreateRowSorter(true);
         tblThuocNoiBat.setModel(new javax.swing.table.DefaultTableModel(
@@ -125,75 +173,30 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         tblThuocNoiBat.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblThuocNoiBat);
 
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 115, 331, 380));
+
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnTimKiem.png"))); // NOI18N
         btnTimKiem.setBorder(null);
         btnTimKiem.setContentAreaFilled(false);
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(521, 61, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlBieuDoLayout = new javax.swing.GroupLayout(pnlBieuDo);
+        pnlBieuDo.setLayout(pnlBieuDoLayout);
+        pnlBieuDoLayout.setHorizontalGroup(
+            pnlBieuDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+        pnlBieuDoLayout.setVerticalGroup(
+            pnlBieuDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(155, 155, 155)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cboThang, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(lblTim, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnTimKiem)))))
-                .addGap(38, 38, 38))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(btnTimKiem))
-                    .addComponent(cboThang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
+        jPanel2.add(pnlBieuDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 117, 590, 390));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -203,10 +206,10 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -228,7 +231,32 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
 
     private void cboThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangActionPerformed
         fillTableThuoc();
+        loadBieuDo();
+        txtTimKiem.setText("");
     }//GEN-LAST:event_cboThangActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        timKiem();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void lstTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTimMouseClicked
+        txtTimKiem.setText(lstTim.getSelectedValue());
+        popup.setVisible(false);
+    }//GEN-LAST:event_lstTimMouseClicked
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        String keyDMT = txtTimKiem.getText().trim();
+        if (!keyDMT.equals("")) {
+            List<DanhMucThuoc> list = dmtdao.selectNotInCourse(keyDMT);
+            DefaultListModel model = new DefaultListModel();
+            model.setSize(0);
+            for (DanhMucThuoc dmt : list) {
+                model.addElement(dmt.getTenThuoc());
+                lstTim.setModel(model);
+            }
+            popup.show(txtTimKiem, 0, txtTimKiem.getHeight());
+        }
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,11 +264,15 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboThang;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTim;
+    private javax.swing.JList<String> lstTim;
+    private javax.swing.JPanel pnlBieuDo;
+    private javax.swing.JPanel pnlTim;
+    private javax.swing.JPopupMenu popup;
     private javax.swing.JTable tblThuocNoiBat;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
@@ -250,7 +282,10 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         tblThuocNoiBat.getTableHeader().setForeground(Color.BLACK);
         fillComboBoxThang();
         fillTableThuoc();
+        loadBieuDo();
+        popup.add(pnlTim);
     }
+    DanhMucThuocDAO dmtdao = new DanhMucThuocDAO();
     HoaDonDAO hddao = new HoaDonDAO();
     ThongKeDAO tkdao = new ThongKeDAO();
     void fillComboBoxThang(){
@@ -276,5 +311,48 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
             }
         }
         
+    }
+    public void loadBieuDo() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        DefaultTableModel model = (DefaultTableModel) tblThuocNoiBat.getModel();
+        String thang = "tháng "+(String) cboThang.getSelectedItem();
+        for(int i=0; i<10; i++){
+            int value = (int) tblThuocNoiBat.getValueAt(i, 1);
+            String tenHH = ((String) tblThuocNoiBat.getValueAt(i, 0));
+            dataset.addValue(value, thang, tenHH);
+        }   
+        
+        JFreeChart barchart = ChartFactory.createBarChart("Biểu đồ top 10 thuốc nổi bật", "", "", dataset, PlotOrientation.HORIZONTAL, true, true, true);
+
+        ChartPanel chartpanel = new ChartPanel(barchart);
+        chartpanel.setPreferredSize(new Dimension(600, 450));
+
+        CategoryPlot plot = (CategoryPlot) barchart.getPlot();
+        plot.setBackgroundPaint(new Color(255, 255, 255));
+
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setSeriesPaint(0, new Color(30, 96, 146));
+        renderer.setShadowVisible(false);      
+
+        renderer.setItemMargin(0);
+        
+        pnlBieuDo.removeAll();
+        pnlBieuDo.setLayout(new CardLayout());
+        pnlBieuDo.add(chartpanel);
+        pnlBieuDo.validate();
+        pnlBieuDo.repaint();
+        pnlBieuDo.setVisible(true);
+    }
+
+    private void timKiem() {
+        String tenHH = txtTimKiem.getText();
+        String thang = (String) cboThang.getSelectedItem();
+        Object[] keyWord = {tenHH, thang};
+        DefaultTableModel model = (DefaultTableModel) tblThuocNoiBat.getModel();
+        model.setRowCount(0);        
+        List<Object[]> list = tkdao.getThuocNoiBat_Thuoc(keyWord);
+        for (Object[] row : list) {
+            model.addRow(row);
+        }        
     }
 }

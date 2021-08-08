@@ -32,14 +32,29 @@ public class HoaDonChiTietDAO extends qlntDAO<HoaDonChiTiet, String> {
     }
 
     @Override
-    public void update(HoaDonChiTiet entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(HoaDonChiTiet hdct) {
+        
+    }
+    public void updateHDCT(double SoLuong, String maHDCT, String maHH ){
+        String sql = "UPDATE HoaDonChiTiet SET SoLuong =? WHERE MaHDCT=? AND MaHH=?";
+        XJdbc.update(sql, 
+                SoLuong,
+                maHDCT,
+                maHH
+                );
     }
 
     @Override
     public void delete(String id) {
         String sql = "DELETE FROM HoaDonChiTiet WHERE MaHDCT=?";
         XJdbc.update(sql, id);
+    }
+    public void deleteSP(String maHDCT, String maHH){
+        String sql = "DELETE FROM HoaDonChiTiet WHERE MaHDCT=? AND MaHH=?";
+        XJdbc.update(sql,
+                maHDCT,
+                maHH
+                );
     }
 
     @Override
