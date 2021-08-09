@@ -982,6 +982,13 @@ public class BanHangJPanel extends javax.swing.JPanel {
                 model.addRow(data);
             }
         }
+        for(int i=0; i<model.getRowCount(); i++){
+            String tenHH = (String) tblTimKiemThuoc.getValueAt(i, 1);
+            String HSD = (String) tblTimKiemThuoc.getValueAt(i, 5);            
+            if(XDate.toDate(HSD, "dd/MM/yyyy").compareTo(new Date())<0){
+                MsgBox.alert(this, "Hàng hóa: "+tenHH+" đã hết hạn sử dụng");
+            }
+        }
     }
 
     private void themVaoGioHang() {
@@ -1018,7 +1025,8 @@ public class BanHangJPanel extends javax.swing.JPanel {
                 soLuongHH * giaBan
             };
             model.addRow(data);
-        }        
+        }
+        
     }
 
     void fillTableKH() {
@@ -1261,7 +1269,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
             this.clearFrom();
             JasperPrint p = JasperFillManager.fillReport(report, map, XJdbc.getConnection());
             JasperViewer.viewReport(p, false);
-            JasperExportManager.exportReportToPdfFile(p, "test.pdf");
+            JasperExportManager.exportReportToPdfFile(p, "hoadon.pdf");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

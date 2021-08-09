@@ -8,16 +8,33 @@ package com.qlnt.ui;
 import com.qlnt.dao.HoaDonDAO;
 import com.qlnt.dao.ThongKeDAO;
 import com.qlnt.util.XDate;
+import com.qlnt.util.XJdbc;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -155,6 +172,11 @@ public class TKDoanhThuJPanel extends javax.swing.JPanel {
         btnXuatExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnXuatExcel.png"))); // NOI18N
         btnXuatExcel.setBorder(null);
         btnXuatExcel.setContentAreaFilled(false);
+        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatExcelActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnXuatExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 480, 190, 30));
 
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnTimKiem.png"))); // NOI18N
@@ -236,6 +258,14 @@ public class TKDoanhThuJPanel extends javax.swing.JPanel {
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         timKiem();
     }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
+        try {
+            xuatExcel();
+        } catch (IOException ex) {
+            Logger.getLogger(TKDoanhThuJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnXuatExcelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -324,15 +354,16 @@ public class TKDoanhThuJPanel extends javax.swing.JPanel {
         }
         lblTongLoiNhuan.setText(currencyVN.format(TongLN));
     }
+
     public void loadBieuDo() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
-        String thang = "tháng "+(String) cboThang.getSelectedItem();
-        for(int i=0; i<model.getRowCount(); i++){
+        String thang = "tháng " + (String) cboThang.getSelectedItem();
+        for (int i = 0; i < model.getRowCount(); i++) {
             double value = (double) tblDoanhThu.getValueAt(i, 2);
             String ngay = ((String) tblDoanhThu.getValueAt(i, 0));
             dataset.addValue(value, thang, ngay);
-        }        
+        }
         JFreeChart barchart = ChartFactory.createBarChart("Biểu đồ doanh thu", "Tháng", "", dataset, PlotOrientation.VERTICAL, true, true, true);
 
         ChartPanel chartpanel = new ChartPanel(barchart);
@@ -343,10 +374,10 @@ public class TKDoanhThuJPanel extends javax.swing.JPanel {
 
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, new Color(30, 96, 146));
-        renderer.setShadowVisible(false);      
+        renderer.setShadowVisible(false);
 
         renderer.setItemMargin(0);
-        
+
         pnlBieuDo.removeAll();
         pnlBieuDo.setLayout(new CardLayout());
         pnlBieuDo.add(chartpanel);
@@ -354,4 +385,128 @@ public class TKDoanhThuJPanel extends javax.swing.JPanel {
         pnlBieuDo.repaint();
         pnlBieuDo.setVisible(true);
     }
+
+    private static HSSFCellStyle styleHeader(HSSFWorkbook workbook) {
+        HSSFFont font = workbook.createFont();
+        font.setBold(true);
+        font.setFontName("Times new roman");
+        font.setFontHeightInPoints((short) 14);
+        font.setColor(IndexedColors.DARK_BLUE.getIndex());
+        HSSFCellStyle style = workbook.createCellStyle();
+        style.setFont(font);
+        return style;
+    }
+
+    private static HSSFCellStyle styleContent(HSSFWorkbook workbook) {
+        HSSFFont font = workbook.createFont();
+        font.setFontHeightInPoints((short) 14);
+        font.setFontName("Times new roman");
+        HSSFCellStyle stylenoidung = workbook.createCellStyle();
+        stylenoidung.setFont(font);
+        return stylenoidung;
+    }
+    private static HSSFCellStyle styleFooter(HSSFWorkbook workbook) {
+        HSSFFont font = workbook.createFont();
+        font.setFontHeightInPoints((short) 14);
+        font.setBold(true);
+        font.setFontName("Times new roman");
+        HSSFCellStyle styleFooter = workbook.createCellStyle();
+        styleFooter.setFont(font);
+        return styleFooter;
+    }
+
+    private void xuatExcel() throws IOException {
+        String thang = (String) cboThang.getSelectedItem();
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("Thang " + thang);
+        int rownum = 0;
+        Cell cell;
+        Row row;
+        
+        HSSFCellStyle style = styleHeader(workbook);     
+        HSSFCellStyle styleNoiDung = styleContent(workbook);
+        HSSFCellStyle styleFooter = styleFooter(workbook);
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("THỜI GIAN");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(1, CellType.STRING);
+        cell.setCellValue("TỔNG HÓA ĐƠN");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(2, CellType.STRING);
+        cell.setCellValue("DOANH THU");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("TỔNG GIÁ VỐN");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(4, CellType.STRING);
+        cell.setCellValue("LỢI NHUẬN");
+        cell.setCellStyle(style);
+
+        for (int i = 0; i < tblDoanhThu.getRowCount(); i++) {
+            rownum++;
+            row = sheet.createRow(rownum);
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue((String) tblDoanhThu.getValueAt(i, 0));
+            cell.setCellStyle(styleNoiDung);
+
+            cell = row.createCell(1, CellType.NUMERIC);
+            cell.setCellValue((int) tblDoanhThu.getValueAt(i, 1));
+            cell.setCellStyle(styleNoiDung);
+
+            cell = row.createCell(2, CellType.NUMERIC);
+            cell.setCellValue((double) tblDoanhThu.getValueAt(i, 2));
+            cell.setCellStyle(styleNoiDung);
+
+            cell = row.createCell(3, CellType.NUMERIC);
+            cell.setCellValue((double) tblDoanhThu.getValueAt(i, 3));
+            cell.setCellStyle(styleNoiDung);
+
+            cell = row.createCell(4, CellType.NUMERIC);
+            cell.setCellValue((double) tblDoanhThu.getValueAt(i, 4));
+            cell.setCellStyle(styleNoiDung);
+        }
+        String rowLast = String.valueOf(tblDoanhThu.getRowCount()-1);
+        System.out.println(rowLast);
+        row = sheet.createRow(tblDoanhThu.getRowCount());
+        cell = row.createCell(0,CellType.STRING);
+        cell.setCellValue("TỔNG");
+        cell.setCellStyle(styleFooter);
+        
+        cell = row.createCell(1,CellType.FORMULA);
+        cell.setCellFormula("SUM(B2:B"+rowLast+")");
+        cell.setCellStyle(styleFooter);
+        
+        cell = row.createCell(2,CellType.FORMULA);
+        cell.setCellFormula("SUM(C2:C"+rowLast+")");
+        cell.setCellStyle(styleFooter);
+        
+        cell = row.createCell(3,CellType.FORMULA);
+        cell.setCellFormula("SUM(D2:D"+rowLast+")");
+        cell.setCellStyle(styleFooter);
+        
+        cell = row.createCell(4,CellType.FORMULA);
+        cell.setCellFormula("SUM(E2:E"+rowLast+")");
+        cell.setCellStyle(styleFooter);
+        
+        JFileChooser fchooser = new JFileChooser();
+        int result = fchooser.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File fname = fchooser.getSelectedFile();
+            try {
+                FileOutputStream file = new FileOutputStream(fname + ".xls");
+                workbook.write(file);
+                workbook.close();
+                file.close();
+            } catch (Exception e) {
+            }
+        }
+
+    }
+
 }
