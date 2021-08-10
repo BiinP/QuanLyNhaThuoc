@@ -43,7 +43,8 @@ public class ThongKeDAO {
         String sql = "{CALL sp_DoanhThu_Ngay(?)}";
         String[] cols = {"NgayBan", "TongHoaDon", "DoanhThu", "TongGiaVon", "LoiNhuan"};
         return this.getListArray(sql, cols, ngay);
-    }
+    }    
+    
     public List<Object[]> getKhachHangTT() {
         String sql = "{CALL sp_KhachHangThanThiet}";
         String[] cols = {"MaKH", "TenKH", "SDT", "SoLanMua", "Diem"};

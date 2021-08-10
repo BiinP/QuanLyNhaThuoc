@@ -60,6 +60,11 @@ public class NhanVienDAO extends qlntDAO<NhanVien, String> {
         List<NhanVien> list = this.selectBySql(sql, id);
         return list.size() > 0 ? list.get(0) : null;
     }
+    public NhanVien selectByEmail(String id) {
+        String sql = "SELECT * FROM NhanVien WHERE Email =?";
+        List<NhanVien> list = this.selectBySql(sql, id);
+        return list.size() > 0 ? list.get(0) : null;
+    }
 
     @Override
     public List<NhanVien> selectAll() {

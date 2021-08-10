@@ -5,6 +5,21 @@
  */
 package com.qlnt.ui;
 
+import com.qlnt.dao.NhanVienDAO;
+import com.qlnt.entity.NhanVien;
+import com.qlnt.util.MsgBox;
+import java.util.Date;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
 /**
  *
  * @author monst
@@ -30,7 +45,7 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         lblUsername = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         lblLogin = new javax.swing.JLabel();
         btnTiepTuc = new javax.swing.JLabel();
@@ -49,16 +64,16 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         lblUsername.setText("Email:");
         getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
 
-        txtUsername.setBackground(new java.awt.Color(28, 40, 89));
-        txtUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtUsername.setForeground(new java.awt.Color(255, 255, 255));
-        txtUsername.setBorder(null);
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+        txtEmail.setBackground(new java.awt.Color(28, 40, 89));
+        txtEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(255, 255, 255));
+        txtEmail.setBorder(null);
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
+                txtEmailActionPerformed(evt);
             }
         });
-        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 250, -1));
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 250, -1));
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 260, 20));
 
         lblLogin.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
@@ -125,12 +140,12 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnTiepTucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTiepTucMouseClicked
-        // TODO add your handling code here:
+        quenMatKhau();
     }//GEN-LAST:event_btnTiepTucMouseClicked
 
     private void btnTiepTucMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTiepTucMouseEntered
@@ -214,12 +229,61 @@ public class QuenMatKhauJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblQuanlynhathuoc;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
-    void init(){
+    void init() {
         setLocationRelativeTo(this);
     }
-    void close(){
+
+    void close() {
         this.dispose();
+    }
+    NhanVienDAO nvdao = new NhanVienDAO();
+
+    private void quenMatKhau() {
+        String email = txtEmail.getText();
+        NhanVien nv = nvdao.selectByEmail(email);
+        System.out.println(email);
+        if (email.equals("")) {
+            MsgBox.alert(this, "Vui lòng nhập Email");
+        } else if (nv==null) {
+            MsgBox.alert(this, "Không tìm thấy nhân viên có mail: \n"
+                    + email);
+        } else {
+            try {
+                Properties p = new Properties();
+                p.put("mail.smtp.auth", "true");
+                p.put("mail.smtp.starttls.enable", "true");
+                p.put("mail.smtp.host", "smtp.gmail.com");
+                p.put("mail.smtp.port", 587);
+                String username = "phucnhps19246@fpt.edu.vn";
+                String Password = "Phuc769231";
+                Session s = Session.getInstance(p, new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, Password);
+                    }
+                });
+                String from = username;
+                String subject = "QUẦY THUỐC TÂY 99 ĐỔI MẬT KHẨU";
+                String body = "Username: " + nv.getMaNV() + "\n"
+                        + "Password: " + nv.getMatKhau();
+                Message m = new MimeMessage(s);
+                m.setFrom(new InternetAddress(from));
+                m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                m.setSubject(subject);
+                m.setText(body);
+                m.setSentDate(new Date());
+                MimeBodyPart textpart = new MimeBodyPart();
+                textpart.setContent(body, "text/plain");
+                Multipart mp = new MimeMultipart();
+                mp.addBodyPart(textpart);
+                m.setContent(mp);
+                Transport.send(m);
+                MsgBox.alert(this, "Gửi mail thành công");
+            } catch (Exception e) {
+                MsgBox.alert(this, "Gửi mail thất bại");
+            }
+        }
+
     }
 }
