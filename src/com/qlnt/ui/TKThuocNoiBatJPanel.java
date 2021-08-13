@@ -204,14 +204,14 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         pnlBieuDo.setLayout(pnlBieuDoLayout);
         pnlBieuDoLayout.setHorizontalGroup(
             pnlBieuDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
         pnlBieuDoLayout.setVerticalGroup(
             pnlBieuDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 390, Short.MAX_VALUE)
         );
 
-        jPanel2.add(pnlBieuDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 117, 590, 390));
+        jPanel2.add(pnlBieuDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 117, 570, 390));
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/refresh.png"))); // NOI18N
         btnRefresh.setContentAreaFilled(false);
@@ -226,7 +226,10 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

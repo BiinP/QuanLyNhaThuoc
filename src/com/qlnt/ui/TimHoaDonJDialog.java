@@ -883,7 +883,7 @@ public class TimHoaDonJDialog extends javax.swing.JDialog {
     private void xoaHH() {
         String maHD = txtMaHD.getText();
         String maHH = (String) tblChiTietHD.getValueAt(rowHDCT, 0);
-        if (rowHDCT <= -1) {
+        if (rowHDCT < 0) {
             MsgBox.alert(this, "Chọn sản phẩm cần xóa");
             return;
         } else {

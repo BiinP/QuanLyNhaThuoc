@@ -1242,7 +1242,8 @@ public class BanHangJPanel extends javax.swing.JPanel {
             Hashtable map = new Hashtable();
             JasperReport report = JasperCompileManager.compileReport("src/com/qlnt/report/HoaDon.jrxml");
             map.put("MaHD", maHD);
-            map.put("ThanhToan", txtKhachTT.getText());
+            map.put("ThanhToan", txtKhachTT.getText());            
+            map.put("TongTien", txtTongTien.getText());
             map.put("GioiTinh", GioiTinh);
             map.put("CanNang", txtCanNang.getText());
             map.put("GhiChu", txtGhiChu.getText());

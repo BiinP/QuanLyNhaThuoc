@@ -112,7 +112,7 @@ public class TongQuanJPanel extends javax.swing.JPanel {
                         .addComponent(lblDoanhthu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlBaocaotrongngayLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 80, Short.MAX_VALUE))
                     .addGroup(pnlBaocaotrongngayLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -175,7 +175,7 @@ public class TongQuanJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblHethan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,14 +203,14 @@ public class TongQuanJPanel extends javax.swing.JPanel {
         pnlBieuDo.setLayout(pnlBieuDoLayout);
         pnlBieuDoLayout.setHorizontalGroup(
             pnlBieuDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 940, Short.MAX_VALUE)
         );
         pnlBieuDoLayout.setVerticalGroup(
             pnlBieuDoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
 
-        add(pnlBieuDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 183, -1, -1));
+        add(pnlBieuDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 183, 940, 360));
 
         lblThu.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblThu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -219,13 +219,12 @@ public class TongQuanJPanel extends javax.swing.JPanel {
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/refresh.png"))); // NOI18N
         btnRefresh.setContentAreaFilled(false);
-        btnRefresh.setOpaque(false);
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
             }
         });
-        add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, 80, -1));
+        add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, 80, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -268,16 +267,28 @@ public class TongQuanJPanel extends javax.swing.JPanel {
     ThongKeDAO tkdao = new ThongKeDAO();
 
     void doanhThuNgay() {
-        String ngay = lblHomNay.getText();
-        System.out.println(ngay);
+        String ngay = lblHomNay.getText();       
+        double doanhThu = 0;
+        int hoadon = 0;
         List<Object[]> list = tkdao.getDoanhThu_Ngay(ngay);
         for (Object[] data : list) {
-            double doanhThu = (double) data[2];
+            doanhThu = (double) data[2];  
+            if(doanhThu > 0){
+                System.out.println(doanhThu);
             lblDoanhthu.setText(currencyVN.format(doanhThu));
-        }
-        for (Object[] data : list) {
-            int hoadon = (int) data[1];
-            lblHoadon.setText(String.valueOf(hoadon));
+            }
+            else if(String.valueOf(doanhThu).equals("")){
+                lblDoanhthu.setText(currencyVN.format(0));
+            }
+        } 
+        for (Object[] data : list) {            
+            hoadon = (int) data[1];
+            if(hoadon > 0){
+                lblHoadon.setText(String.valueOf(hoadon));
+            }
+            else if(String.valueOf(hoadon)==null){
+                lblHoadon.setText("0");
+            }
         }
     }
 
@@ -291,22 +302,25 @@ public class TongQuanJPanel extends javax.swing.JPanel {
     void loadBieuDo() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String thangHienTai = String.valueOf(new Date().getMonth() + 1);
-        String thangTruoc = String.valueOf(new Date().getMonth());
-        System.out.println(thangHienTai);
+        String thangTruoc = String.valueOf(new Date().getMonth());        
         List<Object[]> listHT = tkdao.getDoanhThu(thangHienTai);
         List<Object[]> listTruoc = tkdao.getDoanhThu(thangTruoc);
-        int ngayHT = 0;
-        int ngayTruoc = 0;
+//        int ngayHT = 0;
+//        int ngayTruoc = 0;
 
         for (Object[] data : listTruoc) {
-            ngayTruoc++;
+//            ngayTruoc++;
+            String ngay = (String) data[0];            
+            String ngayTruoc = String.valueOf(ngay.charAt(0))+String.valueOf(ngay.charAt(1));
             double doanhthu = (double) data[2];
-            dataset.addValue(doanhthu, "Tháng "+thangTruoc, String.valueOf(ngayTruoc));
+            dataset.addValue(doanhthu, "Tháng "+thangTruoc, ngayTruoc);
         }
         for (Object[] data : listHT) {
-            ngayHT++;
+//            ngayHT++;
+            String ngay = (String) data[0];            
+            String ngayTruoc = String.valueOf(ngay.charAt(0))+String.valueOf(ngay.charAt(1));
             double doanhthu = (double) data[2];
-            dataset.addValue(doanhthu, "Tháng "+thangHienTai, String.valueOf(ngayHT));
+            dataset.addValue(doanhthu, "Tháng "+thangHienTai, ngayTruoc);
         }
 
         JFreeChart barchart = ChartFactory.createBarChart("Biểu đồ doanh thu", "", "", dataset, PlotOrientation.VERTICAL, true, true, true);        

@@ -844,16 +844,16 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     void delete() {
         String maHD = txtMaHD.getText();
         if (!Auth.isManager()) {
-            MsgBox.alert(this, "Chỉ quản lý mới được xóa hàng hóa!");
-        } else if (MsgBox.confirm(this, "Bạn có muốn xóa hàng hóa " + maHD + " ?")) {
+            MsgBox.alert(this, "Chỉ quản lý mới được xóa hóa đơn!");
+        } else if (MsgBox.confirm(this, "Bạn có muốn xóa hóa đơn " + maHD + " ?")) {
             try {
                 cthddao.delete(maHD);
                 dao.delete(maHD);
                 this.fillTable();
                 this.clearForm();
-                MsgBox.alert(this, "Xóa hàng hóa thành công");
+                MsgBox.alert(this, "Xóa hóa đơn thành công");
             } catch (Exception e) {
-                MsgBox.alert(this, "Xóa hàng hóa thất bại");
+                MsgBox.alert(this, "Xóa hóa đơn thất bại");
             }
         }
     }

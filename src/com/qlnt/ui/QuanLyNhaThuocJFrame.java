@@ -1604,11 +1604,16 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     TKDoanhThuJPanel TabDoanhThu;
 
     void openTKDoanhThu() {
-        if (TabDoanhThu == null) {
-            TabDoanhThu = new TKDoanhThuJPanel();
-            TabMain.addTab("", TabDoanhThu);
+        if (Auth.isManager()) {
+            if (TabDoanhThu == null) {
+                TabDoanhThu = new TKDoanhThuJPanel();
+                TabMain.addTab("", TabDoanhThu);
+            }
+            TabMain.setSelectedComponent(TabDoanhThu);
+        } else {
+            MsgBox.alert(this, "Chỉ quản lý sử dụng được chức năng này");
         }
-        TabMain.setSelectedComponent(TabDoanhThu);
+
     }
     TKThuocNoiBatJPanel TabThuocNoiBat;
 
