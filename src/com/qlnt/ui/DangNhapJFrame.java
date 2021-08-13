@@ -54,6 +54,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
         btnMinus = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         btnForget = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -180,7 +181,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
         lblQuanlynhathuoc.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblQuanlynhathuoc.setForeground(new java.awt.Color(255, 255, 255));
         lblQuanlynhathuoc.setText("QUẢN LÝ NHÀ THUỐC");
-        getContentPane().add(lblQuanlynhathuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+        getContentPane().add(lblQuanlynhathuoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
 
         btnMinus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/minus.png"))); // NOI18N
         btnMinus.setBorder(null);
@@ -248,6 +249,9 @@ public class DangNhapJFrame extends javax.swing.JFrame {
         });
         getContentPane().add(btnForget, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, -1, -1));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/LOGO.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
+
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/background.png"))); // NOI18N
         getContentPane().add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -289,10 +293,12 @@ public class DangNhapJFrame extends javax.swing.JFrame {
 
     private void btnMinusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinusMouseEntered
         changeIcon(1, btnMinus, "src//com//qlnt//icon//minus_hover.png");
+
     }//GEN-LAST:event_btnMinusMouseEntered
 
     private void btnMinusMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinusMouseExited
         changeIcon(2, btnMinus, "src//com//qlnt//icon//minus.png");
+
     }//GEN-LAST:event_btnMinusMouseExited
 
     private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
@@ -397,6 +403,7 @@ public class DangNhapJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnForget;
     private javax.swing.JLabel btnLogin;
     private javax.swing.JButton btnMinus;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

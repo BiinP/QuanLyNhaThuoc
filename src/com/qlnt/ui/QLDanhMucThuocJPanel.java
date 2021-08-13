@@ -50,6 +50,10 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         lstNhomThuoc = new javax.swing.JList<>();
         popup = new javax.swing.JPopupMenu();
+        popupTenHH = new javax.swing.JPopupMenu();
+        pnlTenHH = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstTenHH = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -109,6 +113,26 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
 
         popup.setBackground(new java.awt.Color(255, 255, 255));
         popup.setFocusable(false);
+
+        popupTenHH.setFocusable(false);
+
+        lstTenHH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstTenHHMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(lstTenHH);
+
+        javax.swing.GroupLayout pnlTenHHLayout = new javax.swing.GroupLayout(pnlTenHH);
+        pnlTenHH.setLayout(pnlTenHHLayout);
+        pnlTenHHLayout.setHorizontalGroup(
+            pnlTenHHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+        );
+        pnlTenHHLayout.setVerticalGroup(
+            pnlTenHHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1000, 570));
@@ -483,6 +507,11 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
                 txtTimkiemFocusLost(evt);
             }
         });
+        txtTimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimkiemActionPerformed(evt);
+            }
+        });
         txtTimkiem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTimkiemKeyReleased(evt);
@@ -555,11 +584,11 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(txtTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTimkiem))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -654,7 +683,18 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCuoiActionPerformed
 
     private void txtTimkiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimkiemKeyReleased
-        timKiemDMT();
+        String keyDMT = txtTimkiem.getText().trim();
+        if (!keyDMT.equals("")) {
+            List<DanhMucThuoc> list = dao.selectNotInCourse(keyDMT);
+            DefaultListModel model = new DefaultListModel();
+            model.setSize(0);
+            for (DanhMucThuoc dmt : list) {
+                model.addElement(dmt.getTenThuoc());
+                lstTenHH.setModel(model);
+            }
+            popupTenHH.show(txtTimkiem, 0, txtTimkiem.getHeight());
+        }
+        
     }//GEN-LAST:event_txtTimkiemKeyReleased
 
     private void lstNhomThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstNhomThuocMouseClicked
@@ -694,6 +734,16 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
         btnCuoi.setCursor(new Cursor(HAND_CURSOR));
     }//GEN-LAST:event_btnCuoiMouseEntered
 
+    private void lstTenHHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTenHHMouseClicked
+        txtTimkiem.setText(lstTenHH.getSelectedValue());
+        popupTenHH.setVisible(false);
+        timKiemDMT();
+    }//GEN-LAST:event_lstTenHHMouseClicked
+
+    private void txtTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimkiemActionPerformed
+        timKiemDMT();
+    }//GEN-LAST:event_txtTimkiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCuoi;
@@ -721,10 +771,14 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblTim;
     private javax.swing.JList<String> lstNhomThuoc;
+    private javax.swing.JList<String> lstTenHH;
     private javax.swing.JPanel pnlNhomThuoc;
+    private javax.swing.JPanel pnlTenHH;
     private javax.swing.JPopupMenu popup;
+    private javax.swing.JPopupMenu popupTenHH;
     private javax.swing.JTable tblDanhMucThuoc;
     private javax.swing.JTextField txtDVGoc;
     private javax.swing.JTextField txtDVQuiDoi;
@@ -748,6 +802,7 @@ public class QLDanhMucThuocJPanel extends javax.swing.JPanel {
         fillTable();
         this.updateStatus();
         btnThem.setMnemonic(KeyEvent.VK_ENTER);
+        popupTenHH.add(pnlTenHH);
     }
     void designTable() {        
         tblDanhMucThuoc.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));

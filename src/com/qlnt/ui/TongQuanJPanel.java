@@ -65,14 +65,17 @@ public class TongQuanJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         pnlBieuDo = new javax.swing.JPanel();
         lblThu = new javax.swing.JLabel();
+        btnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(1000, 570));
         setMinimumSize(new java.awt.Dimension(1000, 570));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblHomNay.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblHomNay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblHomNay.setText("abc");
+        add(lblHomNay, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 11, 138, -1));
 
         pnlBaocaotrongngay.setBackground(new java.awt.Color(51, 140, 180));
 
@@ -132,6 +135,8 @@ public class TongQuanJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        add(pnlBaocaotrongngay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 42, 227, -1));
+
         jPanel4.setBackground(new java.awt.Color(24, 116, 168));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -170,7 +175,7 @@ public class TongQuanJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblHethan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,8 +193,11 @@ public class TongQuanJPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 42, 458, -1));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setText("Doanh số bán hàng tháng này");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 145, 227, -1));
 
         javax.swing.GroupLayout pnlBieuDoLayout = new javax.swing.GroupLayout(pnlBieuDo);
         pnlBieuDo.setLayout(pnlBieuDoLayout);
@@ -202,53 +210,33 @@ public class TongQuanJPanel extends javax.swing.JPanel {
             .addGap(0, 388, Short.MAX_VALUE)
         );
 
+        add(pnlBieuDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 183, -1, -1));
+
         lblThu.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblThu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblThu.setText("Thứ năm, 15/07/2021");
+        add(lblThu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 11, 83, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlBieuDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(55, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnlBaocaotrongngay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblThu, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblHomNay, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(70, 70, 70)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(414, 414, 414))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHomNay)
-                    .addComponent(lblThu))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlBaocaotrongngay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(pnlBieuDo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/refresh.png"))); // NOI18N
+        btnRefresh.setContentAreaFilled(false);
+        btnRefresh.setOpaque(false);
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+        add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, 80, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        doanhThuNgay();
+        hangHoaNgay();
+        loadBieuDo();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -280,7 +268,9 @@ public class TongQuanJPanel extends javax.swing.JPanel {
     ThongKeDAO tkdao = new ThongKeDAO();
 
     void doanhThuNgay() {
-        List<Object[]> list = tkdao.getDoanhThu_Ngay(lblHomNay.getText());
+        String ngay = lblHomNay.getText();
+        System.out.println(ngay);
+        List<Object[]> list = tkdao.getDoanhThu_Ngay(ngay);
         for (Object[] data : list) {
             double doanhThu = (double) data[2];
             lblDoanhthu.setText(currencyVN.format(doanhThu));

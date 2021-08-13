@@ -11,8 +11,11 @@ import com.qlnt.dao.ThongKeDAO;
 import com.qlnt.entity.KhachHang;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import static java.awt.Frame.HAND_CURSOR;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,6 +24,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -78,6 +83,7 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         btnTimKiem = new javax.swing.JButton();
         pnlBieuDo = new javax.swing.JPanel();
         btnXuatTop10 = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         lstTim.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -195,6 +201,14 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnTimKiem.png"))); // NOI18N
         btnTimKiem.setBorder(null);
         btnTimKiem.setContentAreaFilled(false);
+        btnTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTimKiemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTimKiemMouseExited(evt);
+            }
+        });
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemActionPerformed(evt);
@@ -218,12 +232,29 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         btnXuatTop10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnTop10.png"))); // NOI18N
         btnXuatTop10.setBorder(null);
         btnXuatTop10.setContentAreaFilled(false);
+        btnXuatTop10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXuatTop10MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXuatTop10MouseExited(evt);
+            }
+        });
         btnXuatTop10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXuatTop10ActionPerformed(evt);
             }
         });
         jPanel2.add(btnXuatTop10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 450, 190, 30));
+
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/refresh.png"))); // NOI18N
+        btnRefresh.setContentAreaFilled(false);
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -293,8 +324,31 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnXuatTop10ActionPerformed
 
+    private void btnTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseEntered
+        changeIcon(1, btnTimKiem, "src//com//qlnt//icon//btnTimKiem_hover.png");
+    }//GEN-LAST:event_btnTimKiemMouseEntered
+
+    private void btnTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseExited
+        changeIcon(2, btnTimKiem, "src//com//qlnt//icon//btnTimKiem.png");
+    }//GEN-LAST:event_btnTimKiemMouseExited
+
+    private void btnXuatTop10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatTop10MouseEntered
+        changeIcon(1, btnXuatTop10, "src//com//qlnt//icon//btnTop10_hover.png");
+    }//GEN-LAST:event_btnXuatTop10MouseEntered
+
+    private void btnXuatTop10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatTop10MouseExited
+        changeIcon(2, btnXuatTop10, "src//com//qlnt//icon//btnTop10.png");
+    }//GEN-LAST:event_btnXuatTop10MouseExited
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        fillComboBoxThang();
+        fillTableKH();
+        loadBieuDo();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXuatTop10;
     private javax.swing.JComboBox<String> cboThang;
@@ -324,6 +378,17 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
     HoaDonDAO hddao = new HoaDonDAO();
     ThongKeDAO tkdao = new ThongKeDAO();
     KhachHangDAO khdao = new KhachHangDAO();
+
+    void changeIcon(int so, JButton btn, String url) {
+        if (so == 1) {
+            Image img = getToolkit().createImage(url);
+            btn.setIcon(new ImageIcon(img));
+            btn.setCursor(new Cursor(HAND_CURSOR));
+        } else {
+            Image img = getToolkit().createImage(url);
+            btn.setIcon(new ImageIcon(img));
+        }
+    }
 
     void fillComboBoxThang() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboThang.getModel();
@@ -409,6 +474,7 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         }
 
     }
+
     private static HSSFCellStyle styleHeader(HSSFWorkbook workbook) {
         HSSFFont font = workbook.createFont();
         font.setBold(true);
@@ -428,7 +494,6 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         stylenoidung.setFont(font);
         return stylenoidung;
     }
-    
 
     private void xuatExcel() throws IOException {
         String thang = (String) cboThang.getSelectedItem();
@@ -437,9 +502,9 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
         int rownum = 0;
         Cell cell;
         Row row;
-        
-        HSSFCellStyle style = styleHeader(workbook);     
-        HSSFCellStyle styleNoiDung = styleContent(workbook);        
+
+        HSSFCellStyle style = styleHeader(workbook);
+        HSSFCellStyle styleNoiDung = styleContent(workbook);
 
         row = sheet.createRow(rownum);
         cell = row.createCell(0, CellType.STRING);
@@ -484,8 +549,8 @@ public class TKKHThanThietJPanel extends javax.swing.JPanel {
             cell = row.createCell(4, CellType.NUMERIC);
             cell.setCellValue((double) tblKhachHang.getValueAt(i, 4));
             cell.setCellStyle(styleNoiDung);
-        }        
-        
+        }
+
         JFileChooser fchooser = new JFileChooser();
         int result = fchooser.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {

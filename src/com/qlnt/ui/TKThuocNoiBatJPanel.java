@@ -11,11 +11,16 @@ import com.qlnt.dao.ThongKeDAO;
 import com.qlnt.entity.DanhMucThuoc;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import static java.awt.Frame.HAND_CURSOR;
+import java.awt.Image;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -63,6 +68,7 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         tblThuocNoiBat = new javax.swing.JTable();
         btnTimKiem = new javax.swing.JButton();
         pnlBieuDo = new javax.swing.JPanel();
+        btnRefresh = new javax.swing.JButton();
 
         lstTim.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -179,6 +185,14 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnTimKiem.png"))); // NOI18N
         btnTimKiem.setBorder(null);
         btnTimKiem.setContentAreaFilled(false);
+        btnTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTimKiemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTimKiemMouseExited(evt);
+            }
+        });
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemActionPerformed(evt);
@@ -198,6 +212,15 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         );
 
         jPanel2.add(pnlBieuDo, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 117, 590, 390));
+
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/refresh.png"))); // NOI18N
+        btnRefresh.setContentAreaFilled(false);
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 20, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -259,8 +282,23 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
+    private void btnTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseEntered
+        changeIcon(1, btnTimKiem, "src//com//qlnt//icon//btnTimKiem_hover.png");
+    }//GEN-LAST:event_btnTimKiemMouseEntered
+
+    private void btnTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseExited
+        changeIcon(2, btnTimKiem, "src//com//qlnt//icon//btnTimKiem.png");
+    }//GEN-LAST:event_btnTimKiemMouseExited
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        fillComboBoxThang();
+        fillTableThuoc();
+        loadBieuDo();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JComboBox<String> cboThang;
     private javax.swing.JLabel jLabel11;
@@ -289,7 +327,16 @@ public class TKThuocNoiBatJPanel extends javax.swing.JPanel {
     DanhMucThuocDAO dmtdao = new DanhMucThuocDAO();
     HoaDonDAO hddao = new HoaDonDAO();
     ThongKeDAO tkdao = new ThongKeDAO();
-
+    void changeIcon(int so, JButton btn, String url) {
+        if (so == 1) {
+            Image img = getToolkit().createImage(url);
+            btn.setIcon(new ImageIcon(img));
+            btn.setCursor(new Cursor(HAND_CURSOR));
+        } else {
+            Image img = getToolkit().createImage(url);
+            btn.setIcon(new ImageIcon(img));
+        }
+    }
     void fillComboBoxThang() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboThang.getModel();
         List<String> listThang = hddao.selectMonth();

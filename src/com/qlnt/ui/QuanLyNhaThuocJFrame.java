@@ -53,8 +53,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         btnQuanLy = new javax.swing.JButton();
         pnlThongKe = new javax.swing.JPanel();
         btnThongKe = new javax.swing.JButton();
-        pnlTroGiup = new javax.swing.JPanel();
-        btnTroGiup = new javax.swing.JButton();
         pnlGioiThieu = new javax.swing.JPanel();
         btnGioiThieu = new javax.swing.JButton();
         pnlDoiMatKhau = new javax.swing.JPanel();
@@ -305,52 +303,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
 
         pnlMenu.add(pnlThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, -1));
 
-        pnlTroGiup.setBackground(new java.awt.Color(39, 53, 111));
-        pnlTroGiup.setMaximumSize(new java.awt.Dimension(200, 50));
-        pnlTroGiup.setMinimumSize(new java.awt.Dimension(200, 50));
-
-        btnTroGiup.setBackground(new java.awt.Color(28, 40, 89));
-        btnTroGiup.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        btnTroGiup.setForeground(new java.awt.Color(255, 255, 255));
-        btnTroGiup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnTrogiup.png"))); // NOI18N
-        btnTroGiup.setText(" Trợ giúp");
-        btnTroGiup.setBorder(null);
-        btnTroGiup.setBorderPainted(false);
-        btnTroGiup.setContentAreaFilled(false);
-        btnTroGiup.setDefaultCapable(false);
-        btnTroGiup.setFocusPainted(false);
-        btnTroGiup.setFocusable(false);
-        btnTroGiup.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnTroGiup.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnTroGiupMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTroGiupMouseExited(evt);
-            }
-        });
-        btnTroGiup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTroGiupActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlTroGiupLayout = new javax.swing.GroupLayout(pnlTroGiup);
-        pnlTroGiup.setLayout(pnlTroGiupLayout);
-        pnlTroGiupLayout.setHorizontalGroup(
-            pnlTroGiupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTroGiupLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnTroGiup, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlTroGiupLayout.setVerticalGroup(
-            pnlTroGiupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnTroGiup, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        pnlMenu.add(pnlTroGiup, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, -1));
-
         pnlGioiThieu.setBackground(new java.awt.Color(39, 53, 111));
         pnlGioiThieu.setMaximumSize(new java.awt.Dimension(200, 50));
         pnlGioiThieu.setMinimumSize(new java.awt.Dimension(200, 50));
@@ -395,7 +347,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
             .addComponent(btnGioiThieu, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        pnlMenu.add(pnlGioiThieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, -1));
+        pnlMenu.add(pnlGioiThieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, -1));
 
         pnlDoiMatKhau.setBackground(new java.awt.Color(39, 53, 111));
         pnlDoiMatKhau.setMaximumSize(new java.awt.Dimension(200, 50));
@@ -441,7 +393,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
             .addComponent(btnDoiMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        pnlMenu.add(pnlDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 50));
+        pnlMenu.add(pnlDoiMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
 
         btnExit.setBackground(new java.awt.Color(28, 40, 89));
         btnExit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -1226,11 +1178,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         hover(1, pnlBanHang);
     }//GEN-LAST:event_btnBanHangMouseEntered
 
-    private void btnTroGiupMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTroGiupMouseEntered
-        pnlSubmenu.setVisible(false);
-        hover(1, pnlTroGiup);
-    }//GEN-LAST:event_btnTroGiupMouseEntered
-
     private void btnGioiThieuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGioiThieuMouseEntered
         pnlSubmenu.setVisible(false);
         hover(1, pnlGioiThieu);
@@ -1400,10 +1347,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         hover(2, pnlThongkekhachhang);
     }//GEN-LAST:event_btnKHTTMouseExited
 
-    private void btnTroGiupMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTroGiupMouseExited
-        hover(2, pnlTroGiup);
-    }//GEN-LAST:event_btnTroGiupMouseExited
-
     private void btnGioiThieuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGioiThieuMouseExited
         hover(2, pnlGioiThieu);
     }//GEN-LAST:event_btnGioiThieuMouseExited
@@ -1415,10 +1358,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
         minus();
     }//GEN-LAST:event_btnMinusActionPerformed
-
-    private void btnTroGiupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTroGiupActionPerformed
-        pnlSubmenu.setVisible(false);
-    }//GEN-LAST:event_btnTroGiupActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         changeIcon(1, btnExit, "src//com//qlnt//icon//btnExit_hover.png");
@@ -1496,7 +1435,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnThuocNoiBat;
     private javax.swing.JButton btnTonKho;
     private javax.swing.JButton btnTongQuan;
-    private javax.swing.JButton btnTroGiup;
     private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblUser;
@@ -1521,7 +1459,6 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnlThongkethuocnoibat;
     private javax.swing.JPanel pnlThongketonkho;
     private javax.swing.JPanel pnlTongquan;
-    private javax.swing.JPanel pnlTroGiup;
     // End of variables declaration//GEN-END:variables
     TongQuanJPanel TabTongQuan;
     BanHangJPanel TabBanHang;
@@ -1534,6 +1471,7 @@ public class QuanLyNhaThuocJFrame extends javax.swing.JFrame {
         setIconImage(XImage.getAppIcon());
         startDongHo();
         Auth.loginSuccess(lblUser, lblRole);
+        openTongQuan();
     }
 
     void openTongQuan() {

@@ -9,6 +9,11 @@ import com.qlnt.dao.NhanVienDAO;
 import com.qlnt.entity.NhanVien;
 import com.qlnt.util.Auth;
 import com.qlnt.util.MsgBox;
+import java.awt.Cursor;
+import static java.awt.Frame.HAND_CURSOR;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 /**
  *
@@ -84,8 +89,6 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
         getContentPane().add(TittleBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 30));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Tên đăng nhập:");
 
@@ -114,6 +117,14 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         btnDoiMK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnDoiMK.png"))); // NOI18N
         btnDoiMK.setBorder(null);
         btnDoiMK.setContentAreaFilled(false);
+        btnDoiMK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDoiMKMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDoiMKMouseExited(evt);
+            }
+        });
         btnDoiMK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDoiMKActionPerformed(evt);
@@ -123,6 +134,14 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         btnThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/qlnt/icon/btnThoat.png"))); // NOI18N
         btnThoat.setBorder(null);
         btnThoat.setContentAreaFilled(false);
+        btnThoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThoatMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThoatMouseExited(evt);
+            }
+        });
         btnThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThoatActionPerformed(evt);
@@ -131,12 +150,15 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
 
         txtMKCu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtMKCu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtMKCu.setOpaque(false);
 
         txtMKXacNhan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtMKXacNhan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtMKXacNhan.setOpaque(false);
 
         txtMKMoi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtMKMoi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtMKMoi.setOpaque(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -201,11 +223,11 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
-
+        changeIcon(1, btnClose, "src//com//qlnt//icon//close_hover.png");
     }//GEN-LAST:event_btnCloseMouseEntered
 
     private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
-
+        changeIcon(2, btnClose, "src//com//qlnt//icon//close.png");
     }//GEN-LAST:event_btnCloseMouseExited
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -223,6 +245,22 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
     private void btnDoiMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiMKActionPerformed
         doiMatKhau();
     }//GEN-LAST:event_btnDoiMKActionPerformed
+
+    private void btnThoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoatMouseEntered
+        changeIcon(1, btnThoat, "src//com//qlnt//icon//btnThoat.ng");
+    }//GEN-LAST:event_btnThoatMouseEntered
+
+    private void btnThoatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoatMouseExited
+        changeIcon(2, btnThoat, "src//com//qlnt//icon//btnThoat_hover.png");
+    }//GEN-LAST:event_btnThoatMouseExited
+
+    private void btnDoiMKMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMKMouseEntered
+        changeIcon(1, btnDoiMK, "src//com//qlnt//icon//btnDoiMK_hover.png");
+    }//GEN-LAST:event_btnDoiMKMouseEntered
+
+    private void btnDoiMKMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoiMKMouseExited
+        changeIcon(2, btnDoiMK, "src//com//qlnt//icon//btnDoiMK.png");
+    }//GEN-LAST:event_btnDoiMKMouseExited
 
     /**
      * @param args the command line arguments
@@ -286,7 +324,16 @@ public class DoiMatKhauJDialog extends javax.swing.JDialog {
         setLocationRelativeTo(this);
         txtTenDangNhap.setText(Auth.user.getMaNV());
     }
-
+    void changeIcon(int so, JButton btn, String url) {
+        if (so == 1) {
+            Image img = getToolkit().createImage(url);
+            btn.setIcon(new ImageIcon(img));
+            btn.setCursor(new Cursor(HAND_CURSOR));
+        } else {
+            Image img = getToolkit().createImage(url);
+            btn.setIcon(new ImageIcon(img));
+        }
+    }
     void doiMatKhau() {
         NhanVienDAO nvdao = new NhanVienDAO();
         String manv = txtTenDangNhap.getText();
